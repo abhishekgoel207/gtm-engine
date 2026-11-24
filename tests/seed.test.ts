@@ -1,11 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { POST as loadRoute } from "@/app/api/demo/load/route";
 import { POST } from "@/app/api/demo/reset/route";
 import discovery from "@/data/fixtures/discovery.json";
 import competitors from "@/data/fixtures/competitors.json";
 import { SEED } from "@/data/seed";
 import { findWarmPaths, validateSeed } from "@/data/validateSeed";
 import * as store from "@/lib/store";
-import { loadDemo } from "@/services/demo";
+import { loadDemo, loadDemoIfEmpty } from "@/services/demo";
 
 const broken = (change: (seed: typeof SEED) => void) => {
   const copy = structuredClone(SEED);
@@ -33,7 +34,7 @@ describe("validateSeed", () => {
     ],
     ["a missing stage", missingStage, 'Coverage: no lead with stage "won"'],
     ["a bad record", broken((s) => (s.leads[0].score.total = 101)), "Schema: leads lead_01 score.total"],
-    ["a wrong count", broken((s) => s.messages.pop()), "Counts: expected 40 messages, found 39"],
+    ["a wrong count", broken((s) => s.messages.pop()), "Counts: expected 52 messages, found 51"],
     [
       "a third warm path",
       broken((s) => s.people[0].education.push("Westbrook State University")),
@@ -62,9 +63,11 @@ describe("seed content", () => {
   });
 
   it("keeps the fixtures in step with the seed", () => {
-    expect(discovery.companies).toEqual(SEED.companies);
-    expect(discovery.people).toEqual(SEED.people.filter((p) => p.id !== "p_rep"));
-    expect(discovery.signals).toEqual(SEED.signals);
+    // Discovery also finds two new companies, each with a buyer and a signal.
+    expect(discovery.companies.slice(0, 10)).toEqual(SEED.companies);
+    expect(discovery.people.slice(0, 14)).toEqual(SEED.people.filter((p) => p.id !== "p_rep"));
+    expect(discovery.signals.slice(0, 12)).toEqual(SEED.signals);
+    expect([discovery.companies.length, discovery.people.length, discovery.signals.length]).toEqual([12, 16, 14]);
     expect(competitors.competitors).toEqual(SEED.competitors);
   });
 
@@ -85,6 +88,13 @@ describe("seed content", () => {
       expect(m.signalIds, m.id).not.toEqual([]);
       if (m.channel === "linkedin") expect(m.body.length, m.id).toBeLessThanOrEqual(300);
       else expect(m.body.split(/\s+/).length, m.id).toBeLessThanOrEqual(90);
+    }
+  });
+
+  it("has at least 20 sent messages per variant", () => {
+    for (const variant of ["A", "B"]) {
+      const sent = SEED.messages.filter((m) => m.variant === variant && m.sentAt);
+      expect(sent.length, variant).toBeGreaterThanOrEqual(20);
     }
   });
 
@@ -131,6 +141,17 @@ describe("loading the demo", () => {
       "warm paths": 2,
       "planted bad leads": 3,
     });
+    expect(store.list("leads")).toHaveLength(25);
+  });
+
+  it("loads the example only when there is no data", async () => {
+    expect(loadDemoIfEmpty()).toBe("loaded");
+    store.remove("leads", "lead_01");
+    expect(loadDemoIfEmpty()).toBe("has_data");
+    expect(store.list("leads")).toHaveLength(24);
+    expect((await loadRoute()).status).toBe(409);
+    store.reset();
+    expect((await loadRoute()).status).toBe(200);
     expect(store.list("leads")).toHaveLength(25);
   });
 });

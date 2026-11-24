@@ -37,7 +37,8 @@ const COUNTS: Record<SeedCollection, number> = {
   competitors: 3,
   signals: 12,
   leads: 25,
-  messages: 40,
+  // 40 in the spec, plus 12 so each variant reaches 20 sent.
+  messages: 52,
 };
 
 const FIXTURES: Record<string, { schema: z.ZodType; data: unknown }> = {
@@ -133,6 +134,8 @@ export function validateSeed(seed: Seed): { ok: boolean; errors: string[] } {
     }
   }
   const idsIn = (c: SeedCollection) => new Set<unknown>(seed[c].map((r) => r.id));
+  // Buyers that only "Find buyers" adds, so the demo visibly changes.
+  const found = (c: "companies" | "people" | "signals") => discoveryFixture[c].map((r) => r.id);
   const targets: Record<string, Set<unknown>> = {
     productId: idsIn("products"),
     companyId: idsIn("companies"),
@@ -148,11 +151,14 @@ export function validateSeed(seed: Seed): { ok: boolean; errors: string[] } {
     ...Object.entries(FIXTURES).map(([name, f]): [string, unknown] => [`fixture ${name}`, f.data]),
   ];
   for (const [name, data] of everything) {
+    const extra = new Set<unknown>(
+      name.startsWith("fixture") ? [...found("companies"), ...found("people"), ...found("signals")] : [],
+    );
     walk(data, name, (object, path) => {
       for (const [key, known] of Object.entries(targets)) {
         if (object[key] === undefined) continue;
         for (const id of [object[key]].flat()) {
-          if (!known.has(id)) fail(`Integrity: ${path} has ${key} ${id}, which does not exist`);
+          if (!known.has(id) && !extra.has(id)) fail(`Integrity: ${path} has ${key} ${id}, which does not exist`);
         }
       }
     });

@@ -9,11 +9,15 @@ export function EmptyState({ message }: { message: string }) {
   const router = useRouter();
   const [loading, startTransition] = useTransition();
 
-  // Replaces all stored data with the demo seed.
+  // Never replaces existing data.
   const loadExample = () =>
     startTransition(async () => {
       try {
-        const response = await fetch("/api/demo/reset", { method: "POST" });
+        const response = await fetch("/api/demo/load", { method: "POST" });
+        if (response.status === 409) {
+          toast.info("You already have data, so nothing was changed.");
+          return;
+        }
         if (!response.ok) throw new Error();
         toast.success("Example loaded");
         router.refresh();

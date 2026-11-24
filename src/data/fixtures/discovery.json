@@ -179,6 +179,42 @@
           "retrievedAt": "2026-11-24T09:00:00Z"
         }
       ]
+    },
+    {
+      "id": "co_11",
+      "name": "Willowmere Dental",
+      "domain": "willowmeredental.example",
+      "industry": "Healthcare",
+      "naics": "621210",
+      "headcount": 640,
+      "revenueBand": "$50M-$100M",
+      "hq": "Boise, ID",
+      "region": "North America",
+      "sources": [
+        {
+          "url": "https://example.com/demo/company/co_11",
+          "title": "demo: Willowmere Dental company page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "co_12",
+      "name": "Harrowgate Grocers",
+      "domain": "harrowgategrocers.example",
+      "industry": "Retail",
+      "naics": "445110",
+      "headcount": 880,
+      "revenueBand": "$100M-$250M",
+      "hq": "Richmond, VA",
+      "region": "North America",
+      "sources": [
+        {
+          "url": "https://example.com/demo/company/co_12",
+          "title": "demo: Harrowgate Grocers company page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
     }
   ],
   "people": [
@@ -491,6 +527,46 @@
           "retrievedAt": "2026-11-24T09:00:00Z"
         }
       ]
+    },
+    {
+      "id": "p_15",
+      "name": "Nadia Boateng",
+      "title": "VP IT",
+      "seniority": "vp",
+      "companyId": "co_11",
+      "education": [
+        "Norwood University"
+      ],
+      "pastEmployers": [
+        "Tidewater Clinics"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_15",
+          "title": "demo: Nadia Boateng profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_16",
+      "name": "Marcus Ellery",
+      "title": "CIO",
+      "seniority": "c_level",
+      "companyId": "co_12",
+      "education": [
+        "Oakhurst College"
+      ],
+      "pastEmployers": [
+        "Fallbrook Foods"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_16",
+          "title": "demo: Marcus Ellery profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
     }
   ],
   "signals": [
@@ -636,6 +712,30 @@
       "source": {
         "url": "https://example.com/demo/signal/sig_12",
         "title": "demo: Fernway Outfitters is replacing its store IT systems",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    },
+    {
+      "id": "sig_15",
+      "companyId": "co_11",
+      "type": "job_posting",
+      "summary": "Willowmere Dental is hiring a Service Desk Manager",
+      "date": "2026-11-18",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_15",
+        "title": "demo: Willowmere Dental is hiring a Service Desk Manager",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    },
+    {
+      "id": "sig_16",
+      "companyId": "co_12",
+      "type": "exec_hire",
+      "summary": "Harrowgate Grocers hired Marcus Ellery as CIO",
+      "date": "2026-11-16",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_16",
+        "title": "demo: Harrowgate Grocers hired Marcus Ellery as CIO",
         "retrievedAt": "2026-11-24T09:00:00Z"
       }
     }

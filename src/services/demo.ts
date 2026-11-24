@@ -1,7 +1,7 @@
 import { SEED, type Seed } from "@/data/seed";
 import { findWarmPaths, validateSeed } from "@/data/validateSeed";
 import { logAudit } from "@/lib/audit";
-import { reset, upsert } from "@/lib/store";
+import { COLLECTIONS, list, reset, upsert } from "@/lib/store";
 
 export type DemoResult =
   | { ok: true; summary: Record<string, number> }
@@ -43,4 +43,10 @@ export function loadDemo(seed: Seed = SEED): DemoResult {
       "job posts": seed.signals.filter((s) => s.type === "job_posting").length,
     },
   };
+}
+
+/** Loads the demo only if there is nothing to lose. The audit log doesn't count. */
+export function loadDemoIfEmpty(): "loaded" | "has_data" | "invalid" {
+  if (COLLECTIONS.some((c) => c !== "audit" && list(c).length > 0)) return "has_data";
+  return loadDemo().ok ? "loaded" : "invalid";
 }

@@ -12,7 +12,7 @@ export default defineConfig({
   },
   // A production build, so it can run next to your own `npm run dev`.
   webServer: {
-    command: `npm run build && npx next start -p ${PORT}`,
+    command: `rm -rf .data/e2e && npm run build && npx next start -p ${PORT}`,
     url: `http://localhost:${PORT}/api/health`,
     timeout: 180_000,
     env: { GTM_DATA_DIR: ".data/e2e" },
