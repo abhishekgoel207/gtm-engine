@@ -1,25 +1,25 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { isActive, MORE_ITEMS, TABS } from "@/components/shell/nav";
+import { isActive, NAV_ITEMS, sectionOf, SECTIONS } from "@/components/shell/nav";
 
-const items = [...TABS, ...MORE_ITEMS];
+const items = NAV_ITEMS;
 
 describe("nav config", () => {
-  it("has the tabs and More items in order", () => {
-    expect(TABS.map((t) => t.label)).toEqual(["Home", "Buyers", "Approve", "Pipeline"]);
-    expect(MORE_ITEMS.map((t) => t.label)).toEqual([
-      "Ideal customer",
-      "Ripple",
-      "Competitors",
-      "Graph",
-      "Insights",
-      "Activity",
-      "Agents",
-      "Billing",
-      "Settings",
+  it("has the main tabs and their sub-tabs in working order", () => {
+    expect(SECTIONS.map((x) => [x.label, x.items.map((i) => i.label)])).toEqual([
+      ["Dashboard", ["Overview", "Insights", "Activity"]],
+      ["Onboarding", ["Your product", "Ideal customer", "Competitors"]],
+      ["Prospects", ["Buyers", "Ripple", "Connections"]],
+      ["Actions", ["Approve", "Pipeline", "Agents"]],
+      ["Account", ["Billing", "Settings"]],
     ]);
-    expect(TABS.filter((t) => t.badge).map((t) => t.label)).toEqual(["Approve"]);
+    expect(NAV_ITEMS.filter((t) => t.badge).map((t) => t.label)).toEqual(["Approve"]);
+  });
+
+  it("puts every screen in exactly one section", () => {
+    for (const item of NAV_ITEMS) expect(sectionOf(item.href)?.items).toContain(item);
+    expect(sectionOf("/demo/signal/sig_01")).toBeUndefined();
   });
 
   it.each(items.map((item) => [item.label, item.href]))("%s (%s) has a page file", (_label, href) => {

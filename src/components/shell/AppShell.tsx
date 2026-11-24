@@ -3,8 +3,10 @@ import { AgentThinking, ThinkingButton, ThinkingProvider } from "@/components/Ag
 import { BottomTabs } from "./BottomTabs";
 import { AppName } from "./AppName";
 import { CreditsPill } from "./CreditsPill";
+import { NextStepLoader } from "./NextStepLoader";
 import { PendingBadge } from "./PendingBadge";
 import { Sidebar } from "./Sidebar";
+import { SubTabs } from "./SubTabs";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pendingBadge = (
@@ -34,7 +36,13 @@ export function AppShell({ children }: { children: ReactNode }) {
             {credits}
             <ThinkingButton />
           </header>
+          <Suspense fallback={<div className="h-11 border-b md:hidden" />}>
+            <SubTabs pendingBadge={pendingBadge} />
+          </Suspense>
           <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col p-4 pb-[calc(5rem+env(safe-area-inset-bottom))] md:p-8">
+            <Suspense fallback={null}>
+              <NextStepLoader />
+            </Suspense>
             {children}
           </main>
         </div>
