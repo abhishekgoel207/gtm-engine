@@ -44,7 +44,7 @@ export function Expansions({ icpId, expansions }: { icpId: string; expansions: E
       )}
       <div className="mt-3 grid gap-4 md:grid-cols-2">
         {expansions.map((e) => (
-          <article key={e.id} className="rounded-xl border p-4">
+          <article key={e.id} className="rounded-xl border bg-card p-4">
             <div className="flex items-center gap-2">
               <h3 className="mr-auto font-medium">{e.segment}</h3>
               <ConfidenceChip value={e.confidence} why={e.rationale} />

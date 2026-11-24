@@ -68,7 +68,7 @@ export function IcpEditor({ icp: initial }: { icp: ICP }) {
             </form>
           );
           return (
-            <section key={key} aria-label={title} className="rounded-xl border p-4">
+            <section key={key} aria-label={title} className="rounded-xl border bg-card p-4">
               <h2 className="font-semibold">{title}</h2>
               {help && <p className="text-sm text-muted-foreground">{help}</p>}
               <ul className="mt-2 divide-y">

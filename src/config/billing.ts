@@ -9,4 +9,4 @@ export const EVENT_LABELS: Record<string, string> = {
 
 /** Amber under 20% of the starting credits, red at 0. */
 export const creditsColor = (balance: number) =>
-  balance <= 0 ? "bg-red-100 text-red-900" : balance < STARTING_CREDITS * 0.2 ? "bg-amber-100 text-amber-900" : "bg-muted text-muted-foreground";
+  balance <= 0 ? "bg-bad/15 text-bad" : balance < STARTING_CREDITS * 0.2 ? "bg-warn/15 text-warn" : "bg-muted text-muted-foreground";

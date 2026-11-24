@@ -3,10 +3,12 @@ import { Suspense } from "react";
 import { RunButton } from "@/components/graph/RunButton";
 import { EmptyState } from "@/components/shell/EmptyState";
 import { PageHeader } from "@/components/shell/PageHeader";
+import { IntroMap } from "@/components/visual/IntroMap";
 import { SourceLink } from "@/components/SourceLinks";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Source } from "@/lib/types";
 import { getGraphFindings } from "@/services/graphReasoning";
+import { getMap } from "@/services/dashboard";
 
 const EDGES: Record<string, string> = {
   works_at: "works at", previously_employed_at: "used to work at", competes_with: "competes with",
@@ -30,9 +32,10 @@ async function Content() {
   ];
   return (
     <>
+      <div className="mb-4 rounded-xl border bg-card p-4"><IntroMap nodes={getMap(10)} /></div>
       <div className="grid gap-3 md:grid-cols-3">
         {cards.map(({ title, items }) => (
-          <details key={title} open className="rounded-xl border p-4">
+          <details key={title} open className="rounded-xl border bg-card p-4">
             <summary className="flex min-h-11 cursor-pointer items-center font-semibold">{title} ({items.length})</summary>
             <ul className="space-y-2 text-sm">
               {items.map(({ sentence, source }) => <li key={sentence}>{sentence}<br />{source && <SourceLink source={source} />}</li>)}
@@ -40,7 +43,7 @@ async function Content() {
           </details>
         ))}
       </div>
-      <details className="mt-4 rounded-xl border">
+      <details className="mt-4 rounded-xl border bg-card">
         <summary className="flex min-h-12 cursor-pointer items-center px-4 font-medium">All connections ({stats.nodes} items, {stats.edges} links)</summary>
         <ul className="divide-y border-t text-sm">
           {graph.edges().map((e, i) => <li key={i} className="px-4 py-2">{title(e.from)} <span className="text-muted-foreground">{EDGES[e.type]}</span> {title(e.to)}</li>)}

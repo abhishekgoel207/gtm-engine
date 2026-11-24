@@ -30,7 +30,7 @@ async function Content({ searchParams }: { searchParams: Search }) {
       {[...days].map(([day, events]) => (
         <section key={day} className="mb-4">
           <h2 className="mb-1 text-sm font-semibold text-muted-foreground">{day}</h2>
-          <ul className="divide-y rounded-xl border">
+          <ul className="divide-y rounded-xl border bg-card">
             {events.map(({ event: e, label, person }) => (
               <li key={e.id} data-action={e.action} className="px-4 py-2">
                 <details>

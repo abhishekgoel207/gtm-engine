@@ -23,11 +23,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <ThinkingProvider>
       <div className="flex min-h-dvh w-full">
-        <Suspense fallback={<aside className="hidden w-60 shrink-0 border-r md:block" />}>
+        <Suspense fallback={<aside className="hidden w-64 shrink-0 border-r md:block" />}>
           <Sidebar pendingBadge={pendingBadge} credits={credits} />
         </Suspense>
         <div className="flex min-w-0 flex-1 flex-col">
-          <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b bg-background px-4 md:hidden">
+          <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b bg-background/90 px-4 backdrop-blur md:hidden">
             <div className="mr-auto">
               <AppName />
             </div>

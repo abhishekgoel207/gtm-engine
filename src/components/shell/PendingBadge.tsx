@@ -7,7 +7,7 @@ export async function PendingBadge() {
   const count = countPendingMessages();
   if (count === 0) return null;
   return (
-    <span className="rounded-full bg-red-600 px-1.5 text-xs leading-5 font-medium text-white">
+    <span className="rounded-full bg-[#C93A2B] px-1.5 text-xs leading-5 font-medium text-white">
       {count}
       <span className="sr-only"> waiting for approval</span>
     </span>

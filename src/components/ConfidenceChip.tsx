@@ -4,9 +4,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { cn } from "@/lib/utils";
 
 export function confidenceLevel(value: number) {
-  if (value >= 0.75) return { label: "High", className: "bg-green-100 text-green-900" };
-  if (value >= 0.5) return { label: "Medium", className: "bg-amber-100 text-amber-900" };
-  return { label: "Low", className: "bg-red-100 text-red-900" };
+  if (value >= 0.75) return { label: "High", className: "bg-good/15 text-good" };
+  if (value >= 0.5) return { label: "Medium", className: "bg-warn/15 text-warn" };
+  return { label: "Low", className: "bg-bad/15 text-bad" };
 }
 
 export function ConfidenceChip({ value, why }: { value: number; why: string }) {

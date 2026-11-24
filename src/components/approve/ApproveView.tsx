@@ -2,7 +2,8 @@
 
 import { Linkedin, Mail } from "./icons";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
+import { useState, useSyncExternalStore } from "react";
 import { toast } from "sonner";
 import { TierBadge } from "@/components/buyers/TierBadge";
 import { SourceLink } from "@/components/SourceLinks";
@@ -14,7 +15,8 @@ import { CHANNEL_LABELS } from "@/lib/labels";
 import type { QueueItem } from "@/services/queue";
 
 const REASONS = ["wrong person", "tone", "inaccurate", "timing", "other"] as const;
-const SWIPE = 90;
+const SWIPE = 100;
+const noop = () => () => {};
 
 function Highlighted({ item }: { item: QueueItem }) {
   const phrase = item.signals.map((s) => s.summary).find((s) => item.message.body.includes(s));
@@ -23,7 +25,7 @@ function Highlighted({ item }: { item: QueueItem }) {
   return (
     <>
       {item.message.body.slice(0, at)}
-      <mark className="rounded bg-yellow-100 px-0.5">{phrase}</mark>
+      <mark className="rounded bg-warn/25 text-[#FFE2B0] px-0.5">{phrase}</mark>
       {item.message.body.slice(at + phrase.length)}
     </>
   );
@@ -36,7 +38,13 @@ export function ApproveView({ drafts, ready, waiting, demo }: { drafts: QueueIte
   const [editing, setEditing] = useState<string | null>(null);
   const [rejecting, setRejecting] = useState(false);
   const [busy, setBusy] = useState(false);
-  const touch = useRef<{ x: number; y: number } | null>(null);
+  const still = useReducedMotion();
+  const x = useMotionValue(0);
+  const rotate = useTransform(x, [-200, 200], still ? [0, 0] : [-6, 6]);
+  const yes = useTransform(x, [20, SWIPE], [0, 1]);
+  const no = useTransform(x, [-SWIPE, -20], [1, 0]);
+  // With a mouse, dragging would get in the way of selecting text.
+  const touchScreen = useSyncExternalStore(noop, () => window.matchMedia("(pointer: coarse)").matches, () => false);
 
   const shown = drafts.filter((d) => !tier || d.lead.score.tier === tier);
   // Skipped messages go to the back of the line.
@@ -70,20 +78,26 @@ export function ApproveView({ drafts, ready, waiting, demo }: { drafts: QueueIte
         ))}
       </div>
       {item ? (
-        <article
+        <div className="relative md:max-w-2xl">
+        {queue.length > 1 && <div aria-hidden className="absolute inset-x-4 top-6 -bottom-2 rounded-xl border bg-card opacity-60" />}
+        <motion.article
+          key={item.message.id}
           aria-label="Message to approve"
-          className="rounded-xl border p-4 md:max-w-2xl"
-          onTouchStart={(e) => { touch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }}
-          onTouchEnd={(e) => {
-            const start = touch.current;
-            touch.current = null;
-            if (!start || editing || rejecting) return;
-            const dx = e.changedTouches[0].clientX - start.x;
-            if (Math.abs(e.changedTouches[0].clientY - start.y) > 60) return;
-            if (dx > SWIPE) void act({ action: "approve" }, "Approved");
-            else if (dx < -SWIPE) skip();
+          className="relative rounded-xl border bg-card p-4 shadow-2xl shadow-black/40"
+          style={{ x, rotate, touchAction: "pan-y" }}
+          initial={still ? false : { opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          drag={editing === null && !rejecting && !busy ? "x" : false}
+          dragListener={touchScreen}
+          dragSnapToOrigin
+          dragElastic={0.6}
+          onDragEnd={(_, info) => {
+            if (info.offset.x > SWIPE) void act({ action: "approve" }, "Approved");
+            else if (info.offset.x < -SWIPE) skip();
           }}
         >
+          <motion.span aria-hidden style={{ opacity: yes }} className="absolute top-3 right-3 z-10 rounded-lg bg-good px-3 py-1 font-bold text-[#03110E]">Approve</motion.span>
+          <motion.span aria-hidden style={{ opacity: no }} className="absolute top-3 right-3 z-10 rounded-lg bg-secondary px-3 py-1 font-bold">Skip</motion.span>
           <div className="flex items-center gap-3">
             <TierBadge tier={item.lead.score.tier} large />
             <div className="min-w-0 flex-1">
@@ -121,13 +135,14 @@ export function ApproveView({ drafts, ready, waiting, demo }: { drafts: QueueIte
               <Button className="h-12" disabled={busy} onClick={() => act({ action: "approve" }, "Approved")}>Approve</Button>
             </div>
           )}
-        </article>
+        </motion.article>
+        </div>
       ) : <p className="rounded-xl border border-dashed p-8 text-center text-muted-foreground">No messages are waiting for you.</p>}
 
       {ready.length > 0 && (
         <section className="mt-8">
           <h2 className="mb-2 text-lg font-semibold">Ready to send ({ready.length})</h2>
-          <ul className="divide-y rounded-xl border">
+          <ul className="divide-y rounded-xl border bg-card">
             {ready.map(({ message, person, company }) => (
               <li key={message.id} data-message={message.id} className="flex items-center gap-2 px-4 py-2">
                 <p className="mr-auto text-sm"><span className="font-medium">{person.name}</span>, {company.name}<br />{CHANNEL_LABELS[message.channel]}{message.status === "scheduled" && ", waiting for tomorrow"}</p>
@@ -151,7 +166,7 @@ export function ApproveView({ drafts, ready, waiting, demo }: { drafts: QueueIte
       {waiting.length > 0 && demo && (
         <section className="mt-8">
           <h2 className="mb-2 text-lg font-semibold">Waiting for a reply</h2>
-          <ul className="divide-y rounded-xl border">
+          <ul className="divide-y rounded-xl border bg-card">
             {waiting.slice(0, 5).map(({ message, person, company }) => (
               <li key={message.id} data-message={message.id} className="flex items-center gap-2 px-4 py-2">
                 <p className="mr-auto text-sm"><span className="font-medium">{person.name}</span>, {company.name}</p>

@@ -1,3 +1,4 @@
+import { artFor } from "@/lib/art";
 import { list } from "@/lib/store";
 import type { Company, Lead, Person, Signal, Source } from "@/lib/types";
 import { getContext } from "./context";
@@ -9,6 +10,7 @@ export interface BuyerRow {
   topSignal?: Signal;
   sources: Source[];
   hasMessages: boolean;
+  art: string;
 }
 
 export function getBuyerRows(): BuyerRow[] {
@@ -23,6 +25,6 @@ export function getBuyerRows(): BuyerRow[] {
     const sources = [...new Map(all.map((s) => [s.url, s])).values()];
     // Uncited data is never shown.
     if (company.sources.length === 0 || person.sources.length === 0) return [];
-    return [{ lead, company, person, topSignal: signals[0], sources, hasMessages: written.has(lead.id) }];
+    return [{ lead, company, person, topSignal: signals[0], sources, hasMessages: written.has(lead.id), art: artFor(person.id + company.name) }];
   });
 }
