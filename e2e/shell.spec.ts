@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
-import { MORE_ITEMS, TABS } from "../src/components/shell/nav";
+import { NAV_ITEMS, SECTIONS } from "../src/components/shell/nav";
 
-const routes = [...TABS, ...MORE_ITEMS].map((item) => item.href).concat("/start");
+const routes = NAV_ITEMS.map((item) => item.href);
 
 for (const route of routes) {
   test(`${route} fits a phone screen`, async ({ page }) => {
@@ -20,27 +20,34 @@ for (const route of routes) {
   });
 }
 
-test("each bottom tab opens its page and is highlighted", async ({ page }) => {
+test("every main tab and sub-tab opens its screen and is highlighted", async ({ page }) => {
   await page.goto("/settings");
-  const nav = page.getByRole("navigation", { name: "Main" });
-  for (const { label, href } of [...TABS].reverse()) {
-    await nav.getByRole("link", { name: label }).click();
-    await expect(page).toHaveURL(href);
-    await expect(nav.locator("[aria-current=page]")).toContainText(label);
-    await expect(nav.locator("[aria-current=page]")).toHaveCount(1);
+  const main = page.getByRole("navigation", { name: "Main" });
+  for (const section of SECTIONS) {
+    await main.getByRole("link", { name: section.label }).click();
+    await expect(page).toHaveURL(section.items[0].href);
+    await expect(main.locator("[aria-current]")).toHaveCount(1);
+    await expect(main.locator("[aria-current]")).toContainText(section.label);
+    const sub = page.getByRole("navigation", { name: section.label });
+    await expect(sub.getByRole("link")).toHaveCount(section.items.length);
+    for (const item of section.items) {
+      await sub.getByRole("link", { name: item.label }).click();
+      await expect(page).toHaveURL(item.href);
+      await expect(sub.locator("[aria-current=page]")).toContainText(item.label);
+    }
   }
 });
 
-test("each More item opens its page and closes the sheet", async ({ page }) => {
-  await page.goto("/");
-  const more = page.getByRole("button", { name: "More" });
-  for (const { label, href } of MORE_ITEMS) {
-    await more.click();
-    await page.getByRole("dialog").getByRole("link", { name: label }).click();
-    await expect(page).toHaveURL(href);
-    await expect(page.getByRole("dialog")).toHaveCount(0);
-    await expect(more).toHaveAttribute("data-active", "true");
-  }
+test("the next step shows everywhere except on its own screen", async ({ page, request }) => {
+  await request.post("/api/demo/reset");
+  await page.goto("/pipeline");
+  const next = page.getByRole("link", { name: /Next, step 1 of 5: Describe product|Next, step 2 of 5: Approve ideal customer|Next, step/ });
+  await expect(next).toBeVisible();
+  const href = (await next.getAttribute("href"))!;
+  await next.click();
+  await expect(page).toHaveURL(href);
+  await expect(page.locator("h1:visible")).toBeVisible();
+  await expect(next).toHaveCount(0);
 });
 
 test("tabs and buttons are at least 44px tall", async ({ page, request }) => {
@@ -48,20 +55,13 @@ test("tabs and buttons are at least 44px tall", async ({ page, request }) => {
   await page.goto("/buyers");
   await expect(page.getByRole("button", { name: "Find buyers" })).toBeVisible();
   const targets = page.locator("header a, header button, nav:visible a, nav:visible button, main button");
-  expect(await targets.count()).toBeGreaterThanOrEqual(8);
+  expect(await targets.count()).toBeGreaterThanOrEqual(7);
   for (const target of await targets.all()) {
     const box = await target.boundingBox();
     if (!box) continue; // hidden at this size
     expect(box.height, await target.innerText()).toBeGreaterThanOrEqual(44);
   }
 
-  await page.getByRole("button", { name: "More" }).click();
-  const sheetTargets = page.getByRole("dialog").locator("a, button");
-  await expect(sheetTargets).toHaveCount(MORE_ITEMS.length + 1);
-  for (const target of await sheetTargets.all()) {
-    const box = await target.boundingBox();
-    expect(box?.height, await target.innerText()).toBeGreaterThanOrEqual(44);
-  }
 });
 
 test.describe("with data", () => {
@@ -86,7 +86,7 @@ test("Load demo fills the Approve badge and settings shows demo mode", async ({ 
   await page.getByRole("button", { name: "Replace" }).click();
   await expect(page.getByText("Demo loaded")).toBeVisible();
   const nav = page.getByRole("navigation", { name: "Main" });
-  await expect(nav.getByRole("link", { name: /Approve/ })).toContainText("9");
+  await expect(nav.getByRole("link", { name: /Actions/ })).toContainText("9");
 
   await page.goto("/settings");
   await expect(page.getByText("Email sending: demo mode")).toBeVisible();
@@ -99,9 +99,8 @@ test.describe("desktop", () => {
     await page.goto("/graph");
     const nav = page.getByRole("navigation", { name: "Main" });
     await expect(nav).toHaveCount(1);
-    await expect(nav.getByRole("link")).toHaveCount(TABS.length + MORE_ITEMS.length);
-    await expect(nav.locator("[aria-current=page]")).toHaveText("Graph");
+    await expect(nav.getByRole("link")).toHaveCount(NAV_ITEMS.length);
+    await expect(nav.locator("[aria-current=page]")).toHaveText("Connections");
     await expect(page.locator("header")).toBeHidden();
-    await expect(page.getByRole("button", { name: "More" })).toBeHidden();
   });
 });
