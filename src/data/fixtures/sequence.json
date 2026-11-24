@@ -1,0 +1,128 @@
+{
+  "messages": [
+    {
+      "id": "seq_01",
+      "leadId": "lead_10",
+      "channel": "email",
+      "step": 1,
+      "variant": "A",
+      "valueProp": "Faster resolution",
+      "subject": "Faster IT support at Tallgrass Payments",
+      "body": "Hi Jonas,\n\nI saw that Tallgrass Payments is hiring a Service Desk Manager.\n\nPulseDesk helped Harborview Clinics cut ticket resolution time by 42%.\n\nWorth a 15-minute call?\n\nAlex",
+      "signalIds": [
+        "sig_05"
+      ],
+      "citations": [
+        {
+          "url": "https://example.com/demo/signal/sig_05",
+          "title": "demo: Tallgrass Payments is hiring a Service Desk Manager",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "seq_02",
+      "leadId": "lead_10",
+      "channel": "email",
+      "step": 1,
+      "variant": "B",
+      "valueProp": "Cost savings",
+      "subject": "Saving IT hours at Tallgrass Payments",
+      "body": "Hi Jonas,\n\nI saw that Tallgrass Payments is hiring a Service Desk Manager.\n\nPulseDesk saved Ledgerwell 1,200 IT hours in its first year.\n\nWorth a 15-minute call?\n\nAlex",
+      "signalIds": [
+        "sig_05"
+      ],
+      "citations": [
+        {
+          "url": "https://example.com/demo/signal/sig_05",
+          "title": "demo: Tallgrass Payments is hiring a Service Desk Manager",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "seq_03",
+      "leadId": "lead_10",
+      "channel": "linkedin",
+      "step": 2,
+      "variant": "A",
+      "valueProp": "Faster resolution",
+      "body": "Hi Jonas, I saw that Tallgrass Payments is hiring a Service Desk Manager. I work with IT teams on faster ticket resolution. Open to connecting?",
+      "signalIds": [
+        "sig_05"
+      ],
+      "citations": [
+        {
+          "url": "https://example.com/demo/signal/sig_05",
+          "title": "demo: Tallgrass Payments is hiring a Service Desk Manager",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "seq_04",
+      "leadId": "lead_10",
+      "channel": "email",
+      "step": 3,
+      "variant": "A",
+      "valueProp": "Faster resolution",
+      "subject": "Re: IT support at Tallgrass Payments",
+      "body": "Hi Jonas,\n\nFollowing up, since Tallgrass Payments is hiring a Service Desk Manager. PulseDesk answers common IT tickets automatically, so a new manager starts with a smaller queue.\n\nWorth a 15-minute call?\n\nAlex",
+      "signalIds": [
+        "sig_05"
+      ],
+      "citations": [
+        {
+          "url": "https://example.com/demo/signal/sig_05",
+          "title": "demo: Tallgrass Payments is hiring a Service Desk Manager",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "seq_05",
+      "leadId": "lead_10",
+      "channel": "linkedin",
+      "step": 4,
+      "variant": "A",
+      "valueProp": "Faster resolution",
+      "body": "Thanks for reading, Jonas. Since Tallgrass Payments is hiring a Service Desk Manager, I can share how similar teams cut resolution time. Worth a 15-minute call?",
+      "signalIds": [
+        "sig_05"
+      ],
+      "citations": [
+        {
+          "url": "https://example.com/demo/signal/sig_05",
+          "title": "demo: Tallgrass Payments is hiring a Service Desk Manager",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "seq_06",
+      "leadId": "lead_10",
+      "channel": "email",
+      "step": 5,
+      "variant": "A",
+      "valueProp": "Faster resolution",
+      "subject": "Closing the loop",
+      "body": "Hi Jonas,\n\nThis is my last note. I reached out because Tallgrass Payments is hiring a Service Desk Manager. If faster ticket resolution becomes a priority, I am happy to help.\n\nWorth a 15-minute call?\n\nAlex",
+      "signalIds": [
+        "sig_05"
+      ],
+      "citations": [
+        {
+          "url": "https://example.com/demo/signal/sig_05",
+          "title": "demo: Tallgrass Payments is hiring a Service Desk Manager",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ],
+      "status": "draft"
+    }
+  ]
+}

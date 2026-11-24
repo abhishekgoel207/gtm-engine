@@ -1,0 +1,247 @@
+{
+  "id": "icp_01",
+  "productId": "prod_01",
+  "regions": [
+    "North America"
+  ],
+  "industries": [
+    {
+      "value": {
+        "label": "Healthcare",
+        "naics": "622110"
+      },
+      "confidence": 0.86,
+      "why": "Customer wins: Harborview Clinics cut ticket resolution time by 42%.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/customer-wins",
+          "title": "demo: PulseDesk customer wins",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "value": {
+        "label": "Retail",
+        "naics": "455110"
+      },
+      "confidence": 0.8,
+      "why": "Customer wins: Oakline Stores resolved 35% of tickets without an agent.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/customer-wins",
+          "title": "demo: PulseDesk customer wins",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "value": {
+        "label": "Fintech",
+        "naics": "522320"
+      },
+      "confidence": 0.78,
+      "why": "Customer wins: Ledgerwell saved 1,200 IT hours in the first year.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/customer-wins",
+          "title": "demo: PulseDesk customer wins",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    }
+  ],
+  "headcountTiers": [
+    {
+      "value": "201-500",
+      "confidence": 0.62,
+      "why": "Description: mid-market IT teams often start at this size.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/description",
+          "title": "demo: PulseDesk description",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "value": "501-1000",
+      "confidence": 0.7,
+      "why": "Description: PulseDesk is built for mid-market IT teams.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/description",
+          "title": "demo: PulseDesk description",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "value": "1001-2000",
+      "confidence": 0.5,
+      "why": "Description: the upper end of mid-market is a guess.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/description",
+          "title": "demo: PulseDesk description",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    }
+  ],
+  "revenueBands": [
+    {
+      "value": "$50M-$100M",
+      "confidence": 0.6,
+      "why": "Pricing: a $36,000 yearly deal fits this revenue range.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/pricing",
+          "title": "demo: PulseDesk pricing",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "value": "$100M-$250M",
+      "confidence": 0.64,
+      "why": "Pricing: per-seat pricing grows with larger IT teams.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/pricing",
+          "title": "demo: PulseDesk pricing",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    }
+  ],
+  "personas": [
+    {
+      "value": {
+        "title": "CIO",
+        "function": "IT",
+        "seniority": "c_level"
+      },
+      "confidence": 0.72,
+      "why": "Pricing: a $36,000 yearly deal usually needs an executive sponsor.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/pricing",
+          "title": "demo: PulseDesk pricing",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "value": {
+        "title": "VP IT",
+        "function": "IT",
+        "seniority": "vp"
+      },
+      "confidence": 0.74,
+      "why": "Features: response time and workload reports serve IT leaders.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/features",
+          "title": "demo: PulseDesk features",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "value": {
+        "title": "Director Service Desk",
+        "function": "IT support",
+        "seniority": "director"
+      },
+      "confidence": 0.7,
+      "why": "Features: automatic ticket answers help the service desk directly.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/features",
+          "title": "demo: PulseDesk features",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "value": {
+        "title": "IT Ops Manager",
+        "function": "IT operations",
+        "seniority": "manager"
+      },
+      "confidence": 0.45,
+      "why": "Features: ticket routing helps managers, but they may not own the budget.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/features",
+          "title": "demo: PulseDesk features",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "value": {
+        "type": "job_posting",
+        "label": "Hiring a Service Desk Manager"
+      },
+      "confidence": 0.68,
+      "why": "Features: hiring for the desk suggests ticket volume is growing.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/features",
+          "title": "demo: PulseDesk features",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "value": {
+        "type": "exec_hire",
+        "label": "New CIO or IT leader"
+      },
+      "confidence": 0.58,
+      "why": "Description: new IT leaders often review their tools.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/description",
+          "title": "demo: PulseDesk description",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "value": {
+        "type": "funding",
+        "label": "Raised new funding"
+      },
+      "confidence": 0.5,
+      "why": "Pricing: new funding can free up budget for a yearly contract.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/pricing",
+          "title": "demo: PulseDesk pricing",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "value": {
+        "type": "tech_change",
+        "label": "Moving to single sign-on"
+      },
+      "confidence": 0.55,
+      "why": "Limits: PulseDesk needs Okta or Entra ID single sign-on.",
+      "sources": [
+        {
+          "url": "https://example.com/demo/icp/constraints",
+          "title": "demo: PulseDesk constraints",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    }
+  ],
+  "status": "draft"
+}

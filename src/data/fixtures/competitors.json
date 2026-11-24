@@ -1,0 +1,84 @@
+{
+  "competitors": [
+    {
+      "id": "comp_01",
+      "name": "TicketHarbor",
+      "category": "direct",
+      "positioning": "All-in-one service desk for large IT teams",
+      "valueProp": "One suite for tickets, assets and changes",
+      "pricing": [
+        {
+          "tier": "Team",
+          "price": "$49 per agent per month",
+          "notes": "Ticketing only"
+        },
+        {
+          "tier": "Enterprise",
+          "price": "$99 per agent per month",
+          "notes": "Adds automation"
+        }
+      ],
+      "ourEdge": [
+        "Live in two weeks, not a quarter",
+        "Automation included in every plan"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/competitor/comp_01",
+          "title": "demo: TicketHarbor pricing page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "comp_02",
+      "name": "ChatBeam",
+      "category": "indirect",
+      "positioning": "General chatbot builder for support teams",
+      "valueProp": "Build a chatbot for any team without code",
+      "pricing": [
+        {
+          "tier": "All plans",
+          "price": "not public",
+          "notes": "Contact sales"
+        }
+      ],
+      "ourEdge": [
+        "Built for IT tickets out of the box",
+        "Learns from past tickets with no scripting"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/competitor/comp_02",
+          "title": "demo: ChatBeam product page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "comp_03",
+      "name": "Spreadsheets and email",
+      "category": "alternative",
+      "positioning": "The shared inbox and tracker most teams start with",
+      "valueProp": "Free and already familiar",
+      "pricing": [
+        {
+          "tier": "Office suite",
+          "price": "not public",
+          "notes": "Usually already paid for"
+        }
+      ],
+      "ourEdge": [
+        "No lost requests: every ticket is tracked",
+        "Response times measured automatically"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/competitor/comp_03",
+          "title": "demo: How IT teams track requests survey",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    }
+  ]
+}

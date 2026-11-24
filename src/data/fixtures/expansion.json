@@ -1,0 +1,64 @@
+{
+  "expansions": [
+    {
+      "id": "exp_01",
+      "icpId": "icp_01",
+      "segment": "Dental and vision groups",
+      "rationale": "They run many small clinics with one IT team, like current healthcare customers.",
+      "evidence": [
+        {
+          "url": "https://example.com/demo/expansion/dental-groups",
+          "title": "demo: Dental groups IT survey",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ],
+      "confidence": 0.68,
+      "decision": "pending"
+    },
+    {
+      "id": "exp_02",
+      "icpId": "icp_01",
+      "segment": "Credit unions",
+      "rationale": "They have mid-market IT teams and needs close to current fintech customers.",
+      "evidence": [
+        {
+          "url": "https://example.com/demo/expansion/credit-unions",
+          "title": "demo: Credit union IT staffing report",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ],
+      "confidence": 0.63,
+      "decision": "pending"
+    },
+    {
+      "id": "exp_03",
+      "icpId": "icp_01",
+      "segment": "Regional logistics",
+      "rationale": "Warehouse staff raise many repeat tickets that can be answered automatically.",
+      "evidence": [
+        {
+          "url": "https://example.com/demo/expansion/logistics",
+          "title": "demo: Warehouse IT support study",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ],
+      "confidence": 0.52,
+      "decision": "pending"
+    },
+    {
+      "id": "exp_04",
+      "icpId": "icp_01",
+      "segment": "Charter school networks",
+      "rationale": "A non-obvious use: small IT teams support many sites during the school year.",
+      "evidence": [
+        {
+          "url": "https://example.com/demo/expansion/charter-schools",
+          "title": "demo: School network IT survey",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ],
+      "confidence": 0.41,
+      "decision": "pending"
+    }
+  ]
+}

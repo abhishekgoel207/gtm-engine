@@ -1,0 +1,28 @@
+{
+  "signals": [
+    {
+      "id": "sig_13",
+      "companyId": "co_07",
+      "type": "funding",
+      "summary": "Quillstone Lending raised $30M to grow its lending team",
+      "date": "2026-11-23",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_13",
+        "title": "demo: Quillstone Lending raised $30M to grow its lending team",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    },
+    {
+      "id": "sig_14",
+      "companyId": "co_05",
+      "type": "job_posting",
+      "summary": "Copperleaf Home is hiring a Service Desk Manager",
+      "date": "2026-11-22",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_14",
+        "title": "demo: Copperleaf Home is hiring a Service Desk Manager",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    }
+  ]
+}

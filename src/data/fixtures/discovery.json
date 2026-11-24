@@ -1,0 +1,643 @@
+{
+  "companies": [
+    {
+      "id": "co_01",
+      "name": "Brightwater Health",
+      "domain": "brightwaterhealth.example",
+      "industry": "Healthcare",
+      "naics": "622110",
+      "headcount": 850,
+      "revenueBand": "$100M-$250M",
+      "hq": "Denver, CO",
+      "region": "North America",
+      "sources": [
+        {
+          "url": "https://example.com/demo/company/co_01",
+          "title": "demo: Brightwater Health company page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "co_02",
+      "name": "Summit Ridge Medical",
+      "domain": "summitridgemedical.example",
+      "industry": "Healthcare",
+      "naics": "621111",
+      "headcount": 620,
+      "revenueBand": "$50M-$100M",
+      "hq": "Columbus, OH",
+      "region": "North America",
+      "sources": [
+        {
+          "url": "https://example.com/demo/company/co_02",
+          "title": "demo: Summit Ridge Medical company page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "co_03",
+      "name": "Larkfield Care Group",
+      "domain": "larkfieldcaregroup.example",
+      "industry": "Healthcare",
+      "naics": "622110",
+      "headcount": 1400,
+      "revenueBand": "$100M-$250M",
+      "hq": "Nashville, TN",
+      "region": "North America",
+      "sources": [
+        {
+          "url": "https://example.com/demo/company/co_03",
+          "title": "demo: Larkfield Care Group company page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "co_04",
+      "name": "Fernway Outfitters",
+      "domain": "fernwayoutfitters.example",
+      "industry": "Retail",
+      "naics": "458110",
+      "headcount": 980,
+      "revenueBand": "$100M-$250M",
+      "hq": "Portland, OR",
+      "region": "North America",
+      "sources": [
+        {
+          "url": "https://example.com/demo/company/co_04",
+          "title": "demo: Fernway Outfitters company page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "co_05",
+      "name": "Copperleaf Home",
+      "domain": "copperleafhome.example",
+      "industry": "Retail",
+      "naics": "449110",
+      "headcount": 540,
+      "revenueBand": "$50M-$100M",
+      "hq": "Charlotte, NC",
+      "region": "North America",
+      "sources": [
+        {
+          "url": "https://example.com/demo/company/co_05",
+          "title": "demo: Copperleaf Home company page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "co_06",
+      "name": "Tallgrass Payments",
+      "domain": "tallgrasspayments.example",
+      "industry": "Fintech",
+      "naics": "522320",
+      "headcount": 460,
+      "revenueBand": "$50M-$100M",
+      "hq": "Chicago, IL",
+      "region": "North America",
+      "sources": [
+        {
+          "url": "https://example.com/demo/company/co_06",
+          "title": "demo: Tallgrass Payments company page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "co_07",
+      "name": "Quillstone Lending",
+      "domain": "quillstonelending.example",
+      "industry": "Fintech",
+      "naics": "522291",
+      "headcount": 390,
+      "revenueBand": "$50M-$100M",
+      "hq": "Toronto, ON",
+      "region": "North America",
+      "sources": [
+        {
+          "url": "https://example.com/demo/company/co_07",
+          "title": "demo: Quillstone Lending company page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "co_08",
+      "name": "Novabank Digital",
+      "domain": "novabankdigital.example",
+      "industry": "Fintech",
+      "naics": "522110",
+      "headcount": 720,
+      "revenueBand": "$100M-$250M",
+      "hq": "Austin, TX",
+      "region": "North America",
+      "sources": [
+        {
+          "url": "https://example.com/demo/company/co_08",
+          "title": "demo: Novabank Digital company page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "co_09",
+      "name": "Thamesbrook Clinics",
+      "domain": "thamesbrookclinics.example",
+      "industry": "Healthcare",
+      "naics": "622110",
+      "headcount": 900,
+      "revenueBand": "$100M-$250M",
+      "hq": "London, UK",
+      "region": "Europe",
+      "sources": [
+        {
+          "url": "https://example.com/demo/company/co_09",
+          "title": "demo: Thamesbrook Clinics company page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "co_10",
+      "name": "Rheinmarkt Handel",
+      "domain": "rheinmarkthandel.example",
+      "industry": "Retail",
+      "naics": "455110",
+      "headcount": 1100,
+      "revenueBand": "$100M-$250M",
+      "hq": "Cologne, Germany",
+      "region": "Europe",
+      "sources": [
+        {
+          "url": "https://example.com/demo/company/co_10",
+          "title": "demo: Rheinmarkt Handel company page",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    }
+  ],
+  "people": [
+    {
+      "id": "p_01",
+      "name": "Maya Okafor",
+      "title": "CIO",
+      "seniority": "c_level",
+      "companyId": "co_01",
+      "email": "maya.okafor@brightwaterhealth.example",
+      "emailStatus": "valid",
+      "linkedinUrl": "https://example.com/demo/linkedin/p_01",
+      "education": [
+        "Alderton University"
+      ],
+      "pastEmployers": [
+        "Pinecrest Hospitals"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_01",
+          "title": "demo: Maya Okafor profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_02",
+      "name": "Daniel Reyes",
+      "title": "Director Service Desk",
+      "seniority": "director",
+      "companyId": "co_01",
+      "email": "daniel.reyes@brightwaterhealth.example",
+      "emailStatus": "valid",
+      "linkedinUrl": "https://example.com/demo/linkedin/p_02",
+      "education": [
+        "Brookmere College"
+      ],
+      "pastEmployers": [
+        "Stonebay Systems"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_02",
+          "title": "demo: Daniel Reyes profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_03",
+      "name": "Hannah Lindqvist",
+      "title": "VP IT",
+      "seniority": "vp",
+      "companyId": "co_02",
+      "email": "hannah.lindqvist@summitridgemedical.example",
+      "emailStatus": "valid",
+      "linkedinUrl": "https://example.com/demo/linkedin/p_03",
+      "education": [
+        "Carrow University"
+      ],
+      "pastEmployers": [
+        "Meadowlark Health"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_03",
+          "title": "demo: Hannah Lindqvist profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_04",
+      "name": "Omar Haddad",
+      "title": "IT Ops Manager",
+      "seniority": "manager",
+      "companyId": "co_02",
+      "email": "omar.haddad@summitridgemedical.example",
+      "emailStatus": "risky",
+      "linkedinUrl": "https://example.com/demo/linkedin/p_04",
+      "education": [
+        "Dunmore Tech"
+      ],
+      "pastEmployers": [
+        "Kestrel Networks"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_04",
+          "title": "demo: Omar Haddad profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_05",
+      "name": "Grace Whitfield",
+      "title": "CIO",
+      "seniority": "c_level",
+      "companyId": "co_03",
+      "email": "grace.whitfield@larkfieldcaregroup.example",
+      "emailStatus": "valid",
+      "linkedinUrl": "https://example.com/demo/linkedin/p_05",
+      "education": [
+        "Eastvale University"
+      ],
+      "pastEmployers": [
+        "Clearspring Care"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_05",
+          "title": "demo: Grace Whitfield profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_06",
+      "name": "Tomas Varga",
+      "title": "Director Service Desk",
+      "seniority": "director",
+      "companyId": "co_03",
+      "email": "tomas.varga@larkfieldcaregroup.example",
+      "emailStatus": "valid",
+      "linkedinUrl": "https://example.com/demo/linkedin/p_06",
+      "education": [
+        "Fairhaven College"
+      ],
+      "pastEmployers": [
+        "Bluefin Support"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_06",
+          "title": "demo: Tomas Varga profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_07",
+      "name": "Priya Nair",
+      "title": "VP IT",
+      "seniority": "vp",
+      "companyId": "co_04",
+      "email": "priya.nair@fernwayoutfitters.example",
+      "emailStatus": "valid",
+      "linkedinUrl": "https://example.com/demo/linkedin/p_07",
+      "education": [
+        "Glenrock University"
+      ],
+      "pastEmployers": [
+        "Northgate Software"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_07",
+          "title": "demo: Priya Nair profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_08",
+      "name": "Ethan Brooks",
+      "title": "VP IT",
+      "seniority": "vp",
+      "companyId": "co_05",
+      "email": "ethan.brooks@copperleafhome.example",
+      "emailStatus": "valid",
+      "linkedinUrl": "https://example.com/demo/linkedin/p_08",
+      "education": [
+        "Hollins Tech"
+      ],
+      "pastEmployers": [
+        "Maplewood Retail"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_08",
+          "title": "demo: Ethan Brooks profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_09",
+      "name": "Sofia Marchetti",
+      "title": "IT Ops Manager",
+      "seniority": "manager",
+      "companyId": "co_05",
+      "email": "sofia.marchetti@copperleafhome.example",
+      "emailStatus": "invalid",
+      "linkedinUrl": "https://example.com/demo/linkedin/p_09",
+      "education": [
+        "Ironwood College"
+      ],
+      "pastEmployers": [
+        "Driftline Logistics"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_09",
+          "title": "demo: Sofia Marchetti profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_10",
+      "name": "Jonas Keller",
+      "title": "CIO",
+      "seniority": "c_level",
+      "companyId": "co_06",
+      "education": [
+        "Westbrook State University"
+      ],
+      "pastEmployers": [
+        "Arcwell Finance"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_10",
+          "title": "demo: Jonas Keller profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_11",
+      "name": "Leila Farouk",
+      "title": "IT Ops Manager",
+      "seniority": "manager",
+      "companyId": "co_07",
+      "email": "leila.farouk@quillstonelending.example",
+      "emailStatus": "valid",
+      "linkedinUrl": "https://example.com/demo/linkedin/p_11",
+      "education": [
+        "Juniper University"
+      ],
+      "pastEmployers": [
+        "Saltmarsh IT"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_11",
+          "title": "demo: Leila Farouk profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_12",
+      "name": "Victor Chan",
+      "title": "Director Service Desk",
+      "seniority": "director",
+      "companyId": "co_08",
+      "education": [
+        "Kingsford College"
+      ],
+      "pastEmployers": [
+        "Peregrine Cloud"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_12",
+          "title": "demo: Victor Chan profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_13",
+      "name": "Amelia Hart",
+      "title": "VP IT",
+      "seniority": "vp",
+      "companyId": "co_09",
+      "education": [
+        "Lowell Park University"
+      ],
+      "pastEmployers": [
+        "Ashdown Trust"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_13",
+          "title": "demo: Amelia Hart profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "p_14",
+      "name": "Felix Baumann",
+      "title": "CIO",
+      "seniority": "c_level",
+      "companyId": "co_10",
+      "education": [
+        "Mosel Institute"
+      ],
+      "pastEmployers": [
+        "Ostwind Handel"
+      ],
+      "sources": [
+        {
+          "url": "https://example.com/demo/person/p_14",
+          "title": "demo: Felix Baumann profile",
+          "retrievedAt": "2026-11-24T09:00:00Z"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "id": "sig_01",
+      "companyId": "co_05",
+      "type": "funding",
+      "summary": "Copperleaf Home raised $40M to open new stores",
+      "date": "2026-10-20",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_01",
+        "title": "demo: Copperleaf Home raised $40M to open new stores",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    },
+    {
+      "id": "sig_02",
+      "companyId": "co_01",
+      "type": "exec_hire",
+      "summary": "Brightwater Health hired Maya Okafor as CIO",
+      "date": "2026-11-05",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_02",
+        "title": "demo: Brightwater Health hired Maya Okafor as CIO",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    },
+    {
+      "id": "sig_03",
+      "companyId": "co_01",
+      "type": "job_posting",
+      "summary": "Brightwater Health is hiring a Service Desk Manager",
+      "date": "2026-11-12",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_03",
+        "title": "demo: Brightwater Health is hiring a Service Desk Manager",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    },
+    {
+      "id": "sig_04",
+      "companyId": "co_03",
+      "type": "job_posting",
+      "summary": "Larkfield Care Group is hiring a Service Desk Manager",
+      "date": "2026-10-28",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_04",
+        "title": "demo: Larkfield Care Group is hiring a Service Desk Manager",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    },
+    {
+      "id": "sig_05",
+      "companyId": "co_06",
+      "type": "job_posting",
+      "summary": "Tallgrass Payments is hiring a Service Desk Manager",
+      "date": "2026-10-05",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_05",
+        "title": "demo: Tallgrass Payments is hiring a Service Desk Manager",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    },
+    {
+      "id": "sig_06",
+      "companyId": "co_02",
+      "type": "renewal_window",
+      "summary": "Summit Ridge Medical's TicketHarbor contract is up for renewal in January",
+      "date": "2026-11-10",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_06",
+        "title": "demo: Summit Ridge Medical's TicketHarbor contract is up for renewal in January",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      },
+      "competitorId": "comp_01"
+    },
+    {
+      "id": "sig_07",
+      "companyId": "co_08",
+      "type": "hiring_freeze",
+      "summary": "Novabank Digital announced a company-wide hiring freeze",
+      "date": "2026-11-01",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_07",
+        "title": "demo: Novabank Digital announced a company-wide hiring freeze",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    },
+    {
+      "id": "sig_08",
+      "companyId": "co_04",
+      "type": "funding",
+      "summary": "Fernway Outfitters raised $25M for its online store",
+      "date": "2026-06-15",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_08",
+        "title": "demo: Fernway Outfitters raised $25M for its online store",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    },
+    {
+      "id": "sig_09",
+      "companyId": "co_06",
+      "type": "exec_hire",
+      "summary": "Tallgrass Payments hired a new Chief Operating Officer",
+      "date": "2026-07-20",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_09",
+        "title": "demo: Tallgrass Payments hired a new Chief Operating Officer",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    },
+    {
+      "id": "sig_10",
+      "companyId": "co_03",
+      "type": "tech_change",
+      "summary": "Larkfield Care Group is moving to single sign-on with Okta",
+      "date": "2026-10-30",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_10",
+        "title": "demo: Larkfield Care Group is moving to single sign-on with Okta",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    },
+    {
+      "id": "sig_11",
+      "companyId": "co_07",
+      "type": "press",
+      "summary": "Quillstone Lending opened a second office in Vancouver",
+      "date": "2026-11-03",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_11",
+        "title": "demo: Quillstone Lending opened a second office in Vancouver",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    },
+    {
+      "id": "sig_12",
+      "companyId": "co_04",
+      "type": "tech_change",
+      "summary": "Fernway Outfitters is replacing its store IT systems",
+      "date": "2026-11-09",
+      "source": {
+        "url": "https://example.com/demo/signal/sig_12",
+        "title": "demo: Fernway Outfitters is replacing its store IT systems",
+        "retrievedAt": "2026-11-24T09:00:00Z"
+      }
+    }
+  ]
+}
