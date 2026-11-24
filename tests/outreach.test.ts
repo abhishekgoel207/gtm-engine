@@ -98,7 +98,7 @@ describe("billing", () => {
   it("sends Flexprice's published event, retries once and never throws", async () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
     vi.stubEnv("FLEXPRICE_API_KEY", "k");
-    const fetchMock = vi.fn(async (_u: string, _i: RequestInit) => new Response("", { status: 500 }));
+    const fetchMock = vi.fn<(url: string, init: RequestInit) => Promise<Response>>(async () => new Response("", { status: 500 }));
     vi.stubGlobal("fetch", fetchMock);
     const before = store.list("ledger").length;
     await flexpriceBilling.meter("leads_enriched", 1, { leadId: "lead_01" });

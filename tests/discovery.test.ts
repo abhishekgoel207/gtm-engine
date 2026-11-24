@@ -34,7 +34,7 @@ async function approvedIcp() {
 describe("search adapter", () => {
   const body = { query: "q", results: [{ title: "T", url: "https://a.example/x", content: "c", score: 0.9, raw_content: null }], response_time: 1 };
   it("sends the published request and maps to Sources", async () => {
-    const fetchMock = vi.fn(async (_url: string, _init: RequestInit) => Response.json(body));
+    const fetchMock = vi.fn<(url: string, init: RequestInit) => Promise<Response>>(async () => Response.json(body));
     vi.stubGlobal("fetch", fetchMock);
     const results = await tavilySearch.search("q", { num: 5 });
     expect(SourceSchema.parse(results[0]).url).toBe("https://a.example/x");

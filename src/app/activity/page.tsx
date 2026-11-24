@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import { Suspense } from "react";
 import { ActivityFilters } from "@/components/activity/ActivityFilters";
 import { EmptyState } from "@/components/shell/EmptyState";
@@ -9,6 +10,7 @@ import { type ActivityRow, countMoves, getActivity } from "@/services/activity";
 type Search = Promise<Record<string, string | string[] | undefined>>;
 
 async function Content({ searchParams }: { searchParams: Search }) {
+  await connection();
   const query = await searchParams;
   const pick = (key: string) => (typeof query[key] === "string" ? query[key] : undefined);
   const filters = { actor: pick("actor"), channel: pick("channel"), lead: pick("lead") };

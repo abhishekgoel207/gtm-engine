@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { Suspense } from "react";
 import { Expansions } from "@/components/icp/Expansions";
 import { IcpEditor } from "@/components/icp/IcpEditor";
@@ -10,6 +11,7 @@ import { getIcpForProduct } from "@/services/icp";
 import { getCurrentProduct } from "@/services/product";
 
 async function Content({ searchParams }: { searchParams: Promise<{ productId?: string | string[] }> }) {
+  await connection();
   const asked = (await searchParams).productId;
   const productId = typeof asked === "string" ? asked : getCurrentProduct()?.id;
   const icp = productId ? getIcpForProduct(productId) : undefined;

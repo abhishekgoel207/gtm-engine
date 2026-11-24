@@ -43,8 +43,10 @@ test("each More item opens its page and closes the sheet", async ({ page }) => {
   }
 });
 
-test("tabs and buttons are at least 44px tall", async ({ page }) => {
+test("tabs and buttons are at least 44px tall", async ({ page, request }) => {
+  await request.post("/api/demo/reset");
   await page.goto("/buyers");
+  await expect(page.getByRole("button", { name: "Find buyers" })).toBeVisible();
   const targets = page.locator("header a, header button, nav:visible a, nav:visible button, main button");
   expect(await targets.count()).toBeGreaterThanOrEqual(8);
   for (const target of await targets.all()) {
@@ -62,10 +64,27 @@ test("tabs and buttons are at least 44px tall", async ({ page }) => {
   }
 });
 
-test("Load example fills the Approve badge and settings shows demo mode", async ({ page }) => {
-  await page.goto("/approve");
-  await page.getByRole("button", { name: "Load example" }).click();
-  await expect(page.getByText("Example loaded")).toBeVisible();
+test.describe("with data", () => {
+test.beforeEach(async ({ request }) => void (await request.post("/api/demo/reset")));
+for (const route of routes) {
+  test(`${route} fits a phone screen with demo data`, async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
+    await page.goto(route);
+    await page.waitForLoadState("load");
+    await expect(page.locator("main [data-slot=skeleton]")).toHaveCount(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+    expect(errors).toEqual([]);
+  });
+}
+});
+
+test("Load demo fills the Approve badge and settings shows demo mode", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Load demo" }).click();
+  await page.getByRole("button", { name: "Replace" }).click();
+  await expect(page.getByText("Demo loaded")).toBeVisible();
   const nav = page.getByRole("navigation", { name: "Main" });
   await expect(nav.getByRole("link", { name: /Approve/ })).toContainText("9");
 

@@ -4,7 +4,8 @@ const PORT = 3100;
 
 export default defineConfig({
   testDir: "e2e",
-  fullyParallel: true,
+  // One store, so one test at a time.
+  workers: 1,
   use: {
     ...devices["Desktop Chrome"],
     baseURL: `http://localhost:${PORT}`,
