@@ -29,7 +29,8 @@ const has = (...keys: string[]) =>
   keys.every((key) => Boolean(process.env[key]?.trim()));
 
 export function getLLM(): LLMProvider {
-  return has("ANTHROPIC_API_KEY") ? anthropicLLM : mockLLM;
+  // The SDK reads either one itself. The key wins if both are set.
+  return has("ANTHROPIC_API_KEY") || has("ANTHROPIC_PROFILE") ? anthropicLLM : mockLLM;
 }
 
 export function getSearch(): SearchProvider {

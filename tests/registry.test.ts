@@ -27,6 +27,7 @@ import { tavilySearch } from "@/providers/search/tavily";
 
 const KEYS = [
   "ANTHROPIC_API_KEY",
+  "ANTHROPIC_PROFILE",
   "TAVILY_API_KEY",
   "SERPER_API_KEY",
   "HUNTER_API_KEY",
@@ -103,6 +104,7 @@ describe("registry", () => {
 
   it.each([
     ["ANTHROPIC_API_KEY", "llm", anthropicLLM],
+    ["ANTHROPIC_PROFILE", "llm", anthropicLLM],
     ["TAVILY_API_KEY", "search", tavilySearch],
     ["SERPER_API_KEY", "search", serperSearch],
     ["HUNTER_API_KEY", "enrichment", hunterEnrichment],

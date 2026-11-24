@@ -26,11 +26,11 @@ npx playwright test   # the full demo in a browser
 
 ## Demo or live
 
-Demo mode uses made-up data. Vendor samples follow each vendor's published format and run through the same code as live answers. **No live service has been tested: there were no keys.**
+Demo mode uses made-up data. Vendor samples follow each vendor's published format and run through the same code as live answers. **Only the Claude adapter has been tested live, with one `scripts/llm-smoke.ts` call. No other live service has been tested: there were no keys.**
 
 | Job | Keys | Without keys | Live adapter |
 | --- | --- | --- | --- |
-| AI | `ANTHROPIC_API_KEY`, `LLM_MODEL` | Sample answers | Built |
+| AI | `ANTHROPIC_API_KEY` or `ANTHROPIC_PROFILE`, `LLM_MODEL` | Sample answers | Built |
 | Search | `TAVILY_API_KEY` | Sample pages | Built |
 | Search | `SERPER_API_KEY` | Sample pages | Not built: request format not public |
 | Page reading | `PLAYWRIGHT` | Not used | Not built |
@@ -42,6 +42,8 @@ Demo mode uses made-up data. Vendor samples follow each vendor's published forma
 | Credits | `FLEXPRICE_API_KEY`, `FLEXPRICE_BASE_URL`, `ORG_ID` | Local ledger | Built; balance stays local |
 | Agent room | `BAND_BRIDGE_URL` | In-app room | Outgoing only |
 | Shared token | `CRON_SECRET` | Webhooks refuse calls | Built |
+
+To use Claude on your own machine without a key, run `ant auth login` and set `ANTHROPIC_PROFILE=default`. Deployed servers need `ANTHROPIC_API_KEY`.
 
 Copy `.env.example` to `.env.local`. Don't set a key whose adapter is not built.
 
