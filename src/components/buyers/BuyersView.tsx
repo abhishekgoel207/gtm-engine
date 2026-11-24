@@ -83,7 +83,7 @@ export function BuyersView({ rows, icpId, icpApproved, canEnrich }: { rows: Buye
       </div>
 
       <div className="hidden overflow-x-auto md:block">
-        <Table className="text-sm">
+        <Table className="text-xs [&_td]:p-1.5 [&_td]:whitespace-normal [&_th]:px-1.5">
           <TableHeader>
             <TableRow>
               {["Company", "Buyer", "Title", "Score", "Contact", "Top signal", "Sources", "Stage"].map((h) => <TableHead key={h}>{h}</TableHead>)}
@@ -109,8 +109,8 @@ export function BuyersView({ rows, icpId, icpApproved, canEnrich }: { rows: Buye
                       <PopoverContent className="w-80"><Reasons row={row} /></PopoverContent>
                     </Popover>
                   </TableCell>
-                  <TableCell><ContactInfo person={person} /><EnrichButton row={row} canEnrich={canEnrich} /></TableCell>
-                  <TableCell className="max-w-60 whitespace-normal">
+                  <TableCell className="max-w-44"><ContactInfo person={person} /><EnrichButton row={row} canEnrich={canEnrich} /></TableCell>
+                  <TableCell className="max-w-40">
                     {topSignal && <Cited href={topSignal.source.url}>{topSignal.summary}</Cited>}
                   </TableCell>
                   <TableCell>
@@ -159,7 +159,7 @@ function Cited({ href, children }: { href: string; children: React.ReactNode }) 
 function ScoreBar({ total }: { total: number }) {
   return (
     <span className="flex items-center gap-2">
-      <span className="h-2 w-16 rounded-full bg-muted"><span className="block h-2 rounded-full bg-foreground" style={{ width: `${total}%` }} /></span>
+      <span className="h-2 w-16 rounded-full bg-muted md:w-8"><span className="block h-2 rounded-full bg-foreground" style={{ width: `${total}%` }} /></span>
       <span className="tabular-nums">{total}</span>
     </span>
   );

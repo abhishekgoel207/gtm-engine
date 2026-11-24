@@ -93,6 +93,8 @@ test.describe("desktop", () => {
     await request.post("/api/demo/reset");
     await page.goto("/buyers");
     await expect(page.getByRole("table")).toBeVisible();
+    const overflow = await page.getByRole("table").evaluate((t) => t.scrollWidth - (t.parentElement?.clientWidth ?? 0));
+    expect(overflow).toBeLessThanOrEqual(0);
     await page.getByText("Hidden (3): why?").click();
     await page.getByRole("button", { name: "Show anyway" }).first().click();
     await expect(page.getByText("Hidden (2): why?")).toBeVisible();
