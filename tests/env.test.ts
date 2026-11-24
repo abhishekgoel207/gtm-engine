@@ -6,6 +6,7 @@ const read = (file: string) =>
 
 const KEYS: Record<string, string> = {
   ANTHROPIC_API_KEY: "",
+  ANTHROPIC_PROFILE: "",
   LLM_MODEL: "claude-sonnet-5-5",
   TAVILY_API_KEY: "",
   SERPER_API_KEY: "",

@@ -16,6 +16,7 @@ export default defineConfig({
     command: `rm -rf .data/e2e && npm run build && npx next start -p ${PORT}`,
     url: `http://localhost:${PORT}/api/health`,
     timeout: 180_000,
-    env: { GTM_DATA_DIR: ".data/e2e" },
+    // Blank keys keep the AI on sample answers whatever .env.local says.
+    env: { GTM_DATA_DIR: ".data/e2e", ANTHROPIC_API_KEY: "", ANTHROPIC_PROFILE: "" },
   },
 });

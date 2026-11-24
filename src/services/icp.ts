@@ -1,11 +1,12 @@
 import { z } from "zod";
+import discoveryFixture from "@/data/fixtures/discovery.json";
 import { emit } from "@/lib/agentLog";
 import { logAudit } from "@/lib/audit";
 import { AppError } from "@/lib/http";
 import { ai, REP } from "@/lib/rep";
 import { get, list, upsert } from "@/lib/store";
-import { type ICP, ICPSchema, SourceSchema } from "@/lib/types";
-import { getLLM } from "@/providers/registry";
+import { type ICP, ICPSchema, type Source, SourceSchema } from "@/lib/types";
+import { getLLM, getProviderModes } from "@/providers/registry";
 import { ICP_SYSTEM, icpPrompt } from "./prompts/icp";
 
 const AGENT = "Planner";
@@ -28,8 +29,24 @@ const IcpDraftSchema = z.object({
 export const calibrate = (confidence: number) =>
   Math.round(Math.min(1, Math.max(0, confidence)) * 100) / 100;
 
-const calibrateAll = <T extends { confidence: number }>(items: T[]) =>
-  items.map((item) => ({ ...item, confidence: calibrate(item.confidence) }));
+// Claude is given no pages here, so any source it returns is made up.
+const calibrateAll = <T extends { confidence: number; sources: Source[] }>(items: T[]) =>
+  items.map((item) => ({
+    ...item,
+    confidence: calibrate(item.confidence),
+    sources: getProviderModes().llm === "live" ? [] : item.sources,
+  }));
+
+const unique = (values: string[]) => [...new Set(values)].sort();
+
+function knownLabels() {
+  const companies = [...list("companies"), ...discoveryFixture.companies];
+  return {
+    industries: unique([...companies, ...list("ripple")].map((c) => c.industry)),
+    regions: unique([...companies, ...list("ripple")].map((c) => c.region)),
+    titles: unique([...list("people").filter((p) => p.companyId), ...discoveryFixture.people].map((p) => p.title)),
+  };
+}
 
 const SECTIONS = {
   industries: "industries",
@@ -53,7 +70,7 @@ export async function createIcp(productId: string): Promise<ICP> {
   const draft = await getLLM().generateJSON({
     agent: AGENT,
     system: ICP_SYSTEM,
-    prompt: icpPrompt(product),
+    prompt: icpPrompt(product, knownLabels()),
     schema: IcpDraftSchema,
     fixtureKey: "icp",
   });
