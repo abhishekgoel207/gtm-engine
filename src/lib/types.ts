@@ -109,6 +109,8 @@ export const PersonSchema = z.object({
   email: z.email().optional(),
   emailStatus: z.enum(["valid", "risky", "invalid", "unknown"]).optional(),
   mxStatus: z.enum(["ok", "no_mx", "unknown"]).optional(),
+  // Where the contact details came from. demo: sample data, no real lookup.
+  contactSource: z.object({ provider: text, confidence, demo: z.boolean() }).optional(),
   education: z.array(z.string()),
   pastEmployers: z.array(z.string()),
   sources: z.array(SourceSchema),
@@ -164,6 +166,8 @@ export const LeadSchema = z.object({
   }),
   owner: z.enum(["ai", "rep"]),
   hidden: z.object({ reason: text }).optional(),
+  // The rep chose "Show anyway", so filters leave it alone.
+  shownAnyway: z.boolean().optional(),
 });
 export type Lead = z.infer<typeof LeadSchema>;
 
@@ -186,6 +190,8 @@ export const MessageSchema = z.object({
     "sent",
     "replied",
   ]),
+  // Problems the rep should look at, such as being too long.
+  flags: z.array(z.string()).optional(),
   rejectReason: z.string().optional(),
   editedBy: z.string().optional(),
   sentAt: isoTimestamp.optional(),
@@ -223,3 +229,9 @@ export const LedgerEntrySchema = z.object({
   leadId: id.optional(),
 });
 export type LedgerEntry = z.infer<typeof LedgerEntrySchema>;
+
+export const SettingsSchema = z.object({
+  id,
+  disabledRules: z.array(z.string()),
+});
+export type Settings = z.infer<typeof SettingsSchema>;

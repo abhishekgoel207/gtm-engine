@@ -1,7 +1,8 @@
 import { type ReactNode, Suspense } from "react";
 import { AgentThinking, ThinkingButton, ThinkingProvider } from "@/components/AgentThinking";
 import { BottomTabs } from "./BottomTabs";
-import { AppName, CreditsPill } from "./Brand";
+import { AppName } from "./AppName";
+import { CreditsPill } from "./CreditsPill";
 import { PendingBadge } from "./PendingBadge";
 import { Sidebar } from "./Sidebar";
 
@@ -12,19 +13,25 @@ export function AppShell({ children }: { children: ReactNode }) {
     </Suspense>
   );
 
+  const credits = (
+    <Suspense fallback={null}>
+      <CreditsPill />
+    </Suspense>
+  );
+
   // Suspense: the active tab is unknown while prerendering pages with dynamic params.
   return (
     <ThinkingProvider>
       <div className="flex min-h-dvh w-full">
         <Suspense fallback={<aside className="hidden w-60 shrink-0 border-r md:block" />}>
-          <Sidebar pendingBadge={pendingBadge} />
+          <Sidebar pendingBadge={pendingBadge} credits={credits} />
         </Suspense>
         <div className="flex min-w-0 flex-1 flex-col">
           <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b bg-background px-4 md:hidden">
             <div className="mr-auto">
               <AppName />
             </div>
-            <CreditsPill />
+            {credits}
             <ThinkingButton />
           </header>
           <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col p-4 pb-[calc(5rem+env(safe-area-inset-bottom))] md:p-8">

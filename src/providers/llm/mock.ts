@@ -6,7 +6,8 @@ export function createMockLLM(
   fixturesDir = path.join(process.cwd(), "src", "data", "fixtures"),
 ): LLMProvider {
   return {
-    async generateJSON({ schema, fixtureKey }) {
+    async generateJSON({ schema, fixtureKey, mockData }) {
+      if (mockData !== undefined) return schema.parse(mockData);
       if (!/^[\w-]+$/.test(fixtureKey)) {
         throw new Error(`Invalid fixture key: ${fixtureKey}`);
       }

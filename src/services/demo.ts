@@ -3,6 +3,9 @@ import { findWarmPaths, validateSeed } from "@/data/validateSeed";
 import { logAudit } from "@/lib/audit";
 import { COLLECTIONS, list, reset, upsert } from "@/lib/store";
 
+import { applyNegativeRules } from "./negativeSignals";
+import { rescore } from "./rescore";
+
 export type DemoResult =
   | { ok: true; summary: Record<string, number> }
   | { ok: false; errors: string[] };
@@ -20,6 +23,8 @@ export function loadDemo(seed: Seed = SEED): DemoResult {
   for (const r of seed.signals) upsert("signals", r);
   for (const r of seed.leads) upsert("leads", r);
   for (const r of seed.messages) upsert("messages", r);
+  rescore();
+  applyNegativeRules();
   logAudit({
     actor: "rep",
     actorName: "Alex Rep",

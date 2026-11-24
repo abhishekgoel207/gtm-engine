@@ -1,9 +1,11 @@
 import { connection } from "next/server";
 import { Suspense } from "react";
 import { PageHeader } from "@/components/shell/PageHeader";
+import { RuleToggles } from "@/components/RuleToggles";
 import { TestStreamButton } from "@/components/TestStreamButton";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getProviderModes, type ProviderKind } from "@/providers/registry";
+import { getDisabledRules } from "@/services/negativeSignals";
 
 const LABELS: Record<ProviderKind, string> = {
   llm: "AI thinking and writing",
@@ -19,6 +21,7 @@ async function ServiceList() {
   await connection();
   const modes = getProviderModes();
   return (
+    <>
     <ul className="divide-y rounded-xl border">
       {(Object.keys(LABELS) as ProviderKind[]).map((kind) => (
         <li key={kind} className="flex min-h-12 items-center px-4">
@@ -26,6 +29,8 @@ async function ServiceList() {
         </li>
       ))}
     </ul>
+    <RuleToggles disabled={getDisabledRules()} />
+    </>
   );
 }
 

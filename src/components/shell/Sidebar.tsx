@@ -5,17 +5,17 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { ThinkingButton } from "@/components/AgentThinking";
 import { cn } from "@/lib/utils";
-import { AppName, CreditsPill } from "./Brand";
+import { AppName } from "./AppName";
 import { isActive, MORE_ITEMS, TABS } from "./nav";
 
-export function Sidebar({ pendingBadge }: { pendingBadge: ReactNode }) {
+export function Sidebar({ pendingBadge, credits }: { pendingBadge: ReactNode; credits: ReactNode }) {
   const pathname = usePathname();
 
   return (
     <aside className="sticky top-0 hidden h-dvh w-60 shrink-0 flex-col gap-4 overflow-y-auto border-r p-4 md:flex">
       <div className="flex items-center justify-between">
         <AppName />
-        <CreditsPill />
+        {credits}
       </div>
       <ThinkingButton />
       <nav aria-label="Main">

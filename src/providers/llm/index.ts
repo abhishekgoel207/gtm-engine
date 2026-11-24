@@ -7,6 +7,8 @@ export interface GenerateJSONInput<T> {
   schema: z.ZodType<T>;
   /** Names the fixture the mock returns: src/data/fixtures/<fixtureKey>.json */
   fixtureKey: string;
+  /** Mock mode returns this instead of the fixture file, when the answer depends on the input. */
+  mockData?: unknown;
 }
 
 export interface LLMProvider {

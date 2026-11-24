@@ -116,9 +116,11 @@ describe("loading the demo", () => {
     const first = snapshot();
     expect(loadDemo().ok).toBe(true);
     expect(snapshot()).toEqual(first);
-    expect(store.list("leads")).toEqual(SEED.leads);
+    // Scores and hidden reasons are worked out on load.
+    expect(store.list("leads").map((l) => [l.id, l.stage])).toEqual(SEED.leads.map((l) => [l.id, l.stage]));
+    expect(store.list("leads").filter((l) => l.hidden).map((l) => l.id)).toEqual(SEED.plantedBadLeads.map((b) => b.leadId));
     expect(store.list("messages")).toEqual(SEED.messages);
-    expect(store.list("audit").map((a) => a.action)).toEqual(["demo.reset"]);
+    expect(store.list("audit").at(-1)?.action).toBe("demo.reset");
   });
 
   it.each([

@@ -8,7 +8,7 @@ import { bandAgentBus } from "@/providers/agents/band";
 import type { AgentPost } from "@/providers/agents";
 import { createMockAgentBus, mockAgentBus } from "@/providers/agents/mock";
 import { flexpriceBilling } from "@/providers/billing/flexprice";
-import { createMockBilling, mockBilling } from "@/providers/billing/mock";
+import { mockBilling } from "@/providers/billing/mock";
 import { apolloEnrichment } from "@/providers/enrichment/apollo";
 import { clearbitEnrichment } from "@/providers/enrichment/clearbit";
 import { hunterEnrichment } from "@/providers/enrichment/hunter";
@@ -17,9 +17,9 @@ import { prospeoEnrichment } from "@/providers/enrichment/prospeo";
 import { anthropicLLM } from "@/providers/llm/anthropic";
 import { createMockLLM, mockLLM } from "@/providers/llm/mock";
 import { gmailMessaging } from "@/providers/messaging/gmail";
-import { linkedinMessaging } from "@/providers/messaging/linkedin";
 import { mockMessaging } from "@/providers/messaging/mock";
 import { sendgridMessaging } from "@/providers/messaging/sendgrid";
+import { reset } from "@/lib/store";
 import * as registry from "@/providers/registry";
 import { mockSearch } from "@/providers/search/mock";
 import { serperSearch } from "@/providers/search/serper";
@@ -217,7 +217,8 @@ describe("mocks: valid output, repeatable, no network", () => {
   });
 
   it("billing spends credits and never goes below zero", async () => {
-    const billing = createMockBilling();
+    const billing = mockBilling;
+    reset();
     expect(await billing.balance()).toBe(500);
     await billing.meter("leads_enriched", 1, { leadId: "l1" });
     for (let i = 0; i < 3; i++) await billing.meter("graph_queries_evaluated", 1, {});
@@ -243,20 +244,12 @@ describe("mocks: valid output, repeatable, no network", () => {
   });
 });
 
-describe("live stubs throw 'not implemented'", () => {
+describe("adapters that are not built", () => {
   it.each<[string, () => unknown]>([
-    ["tavily", () => tavilySearch.search("x", { num: 1 })],
     ["serper", () => serperSearch.search("x", { num: 1 })],
-    ["hunter", () => hunterEnrichment.enrichPerson({ name: "x", companyDomain: "x.example" })],
-    ["apollo", () => apolloEnrichment.enrichPerson({ name: "x", companyDomain: "x.example" })],
     ["clearbit", () => clearbitEnrichment.enrichPerson({ name: "x", companyDomain: "x.example" })],
-    ["prospeo", () => prospeoEnrichment.enrichPerson({ name: "x", companyDomain: "x.example" })],
-    ["sendgrid", () => sendgridMessaging.send(message, person)],
     ["gmail", () => gmailMessaging.send(message, person)],
-    ["linkedin", () => linkedinMessaging.send(message, person)],
-    ["flexprice", () => flexpriceBilling.balance()],
-    ["band", () => bandAgentBus.post({ from: "rep", mentions: [], text: "x" })],
-  ])("%s", async (_name, call) => {
+  ])("%s says so", async (_name, call) => {
     await expect(call()).rejects.toThrow("not implemented");
   });
 });
