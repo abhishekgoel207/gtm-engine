@@ -59,8 +59,8 @@ const builder: Role = async (message, ask) => {
   try {
     const icp = getIcpForProduct(product.id) ?? (await createIcp(product.id));
     if (icp.status === "approved") {
-      const { added, hidden } = await discover(icp.id);
-      notes.push(`Found ${added} new buyers, hid ${hidden}.`);
+      const { added, hidden, ripple } = await discover(icp.id);
+      notes.push(`Found ${added} new buyers, hid ${hidden}, and added ${ripple} from Ripple.`);
     } else notes.push("The ideal customer still needs the rep's approval, so I used the current buyers.");
     const { warmIntros, displacement } = getGraphFindings();
     emit({ agent: "Builder", kind: "graph", text: `Found ${warmIntros.length} warm introductions and ${displacement.length} winnable companies` });

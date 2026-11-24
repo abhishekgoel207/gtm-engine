@@ -1,3 +1,4 @@
+import { RIPPLE_SEED } from "@/data/rippleSeed";
 import { SEED, type Seed } from "@/data/seed";
 import { findWarmPaths, validateSeed } from "@/data/validateSeed";
 import { logAudit } from "@/lib/audit";
@@ -23,6 +24,7 @@ export function loadDemo(seed: Seed = SEED): DemoResult {
   for (const r of seed.signals) upsert("signals", r);
   for (const r of seed.leads) upsert("leads", r);
   for (const r of seed.messages) upsert("messages", r);
+  for (const r of RIPPLE_SEED) upsert("ripple", r);
   rescore();
   applyNegativeRules();
   logAudit({
@@ -42,6 +44,7 @@ export function loadDemo(seed: Seed = SEED): DemoResult {
       signals: seed.signals.length,
       leads: seed.leads.length,
       messages: seed.messages.length,
+      "ripple contacts": RIPPLE_SEED.length,
       "warm paths": findWarmPaths(seed).length,
       "planted bad leads": seed.plantedBadLeads.length,
       "renewal windows": seed.signals.filter((s) => s.type === "renewal_window").length,

@@ -12,6 +12,7 @@ import {
   MessageSchema,
   PersonSchema,
   ProductSchema,
+  RippleContactSchema,
   SettingsSchema,
   SignalSchema,
 } from "./types";
@@ -29,6 +30,7 @@ const schemas = {
   audit: AuditEventSchema,
   ledger: LedgerEntrySchema,
   settings: SettingsSchema,
+  ripple: RippleContactSchema,
 };
 
 export type Collection = keyof typeof schemas;

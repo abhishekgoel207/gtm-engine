@@ -6,6 +6,7 @@ import { AppError } from "@/lib/http";
 import { ai, REP } from "@/lib/rep";
 import { get, list, upsert } from "@/lib/store";
 import type { Lead, Message } from "@/lib/types";
+import { findRipple } from "./rippleLookup";
 import { checkMessage } from "./security";
 import { linkedinMessaging } from "@/providers/messaging/linkedin";
 import { getBilling, getMessaging, getProviderModes } from "@/providers/registry";
@@ -34,6 +35,8 @@ export async function sendMessage(id: string, options: { by?: "rep" | "ai"; repS
   const person = lead && get("people", lead.personId);
   if (!lead || !person) throw new AppError(404, "That buyer no longer exists.");
   if (lead.hidden) throw new AppError(403, "This lead is hidden. Choose Show anyway first.");
+  const shared = findRipple({ name: person.name, email: person.email, domain: get("companies", lead.companyId)?.domain });
+  if (shared && !shared.okToContact) throw new AppError(403, `${person.name} asked not to be contacted.`);
   if (message.channel === "email" && !person.email) throw new AppError(400, `Get contact info for ${person.name} first.`);
   if (message.channel === "email" && person.emailStatus === "invalid") throw new AppError(400, `${person.name}'s email does not work.`);
   if (message.channel === "linkedin" && !options.repSentIt) throw new AppError(400, "Send it in LinkedIn, then tap I sent it.");

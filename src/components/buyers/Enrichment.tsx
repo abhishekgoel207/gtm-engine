@@ -31,7 +31,7 @@ export function ContactInfo({ person }: { person: Person }) {
       </p>
       <p className="text-xs text-muted-foreground">
         {MX[person.mxStatus ?? "unknown"]}{how?.demo && " (sample)"}
-        {how && ` · ${how.demo ? "Sample data in" : "Verified by"} ${how.provider}${how.demo ? " format" : ""}, ${how.confidence.toFixed(2)}`}
+        {how?.provider === "Ripple" ? " · From Ripple, not verified" : how && ` · ${how.demo ? "Sample data in" : "Verified by"} ${how.provider}${how.demo ? " format" : ""}, ${how.confidence.toFixed(2)}`}
       </p>
       {person.linkedinUrl && (
         <a className="inline-flex min-h-11 items-center text-link underline" href={person.linkedinUrl.replace("https://example.com/demo/", "/demo/")} target="_blank" rel="noopener noreferrer">LinkedIn</a>

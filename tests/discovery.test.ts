@@ -101,7 +101,8 @@ describe("discovery", () => {
     const icp = await approvedIcp();
     expect((await discover(icp.id)).added).toBe(2);
     expect((await discover(icp.id)).added).toBe(0);
-    expect(store.list("leads")).toHaveLength(27);
+    // 2 from the web and 2 from Ripple.
+    expect(store.list("leads")).toHaveLength(29);
     expect(store.get("people", "p_01")?.email).toBeTruthy();
   });
   it("saves the same company once", async () => {

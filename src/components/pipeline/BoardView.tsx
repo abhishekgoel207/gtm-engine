@@ -9,6 +9,7 @@ import { TierBadge } from "@/components/buyers/TierBadge";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { api } from "@/lib/api";
+import { RippleBadge } from "@/components/ripple/RippleBadge";
 import { STAGE_FILL, StageBar } from "@/components/visual/StageBar";
 import { cn } from "@/lib/utils";
 import type { Board } from "@/services/pipeline";
@@ -49,7 +50,7 @@ export function BoardView({ board }: { board: Board }) {
           <h2 className="font-semibold">{label} <span className="text-muted-foreground">{cards.length}</span></h2>
           <p className="mb-2 text-sm text-muted-foreground">${value.toLocaleString("en-US")}</p>
           <ul className="flex flex-col gap-2">
-            {cards.map(({ lead, company, person, lastActivity }) => (
+            {cards.map(({ lead, company, person, lastActivity, ripple }) => (
               <li key={lead.id} data-lead={lead.id} draggable onDragStart={(e) => e.dataTransfer.setData("text/plain", `${lead.id}|${stage}`)}
                 className="rounded-lg border bg-card p-3 text-sm">
                 <div className="flex items-start gap-2">
@@ -63,6 +64,7 @@ export function BoardView({ board }: { board: Board }) {
                 <p className="mt-1 inline-flex items-center gap-1 rounded-full bg-secondary px-2 py-0.5 text-xs" data-owner={lead.owner}>
                   {lead.owner === "ai" ? <><Bot className="size-3" aria-hidden /> AI</> : <><UserRound className="size-3" aria-hidden /> Rep: Alex</>}
                 </p>
+                {ripple && <RippleBadge owner={ripple} />}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild><Button variant="outline" className="mt-2 h-11 w-full">Move to...</Button></DropdownMenuTrigger>
                   <DropdownMenuContent>

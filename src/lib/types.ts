@@ -190,6 +190,8 @@ export const MessageSchema = z.object({
     "sent",
     "replied",
   ]),
+  // Set when the buyer came through Ripple.
+  ripple: z.object({ contactId: id, owner: text, hook: text }).optional(),
   // Problems the rep should look at, such as being too long.
   flags: z.array(z.string()).optional(),
   rejectReason: z.string().optional(),
@@ -229,6 +231,28 @@ export const LedgerEntrySchema = z.object({
   leadId: id.optional(),
 });
 export type LedgerEntry = z.infer<typeof LedgerEntrySchema>;
+
+export const RippleContactSchema = z.object({
+  id,
+  name: text,
+  title: text,
+  companyName: text,
+  domain: text,
+  email: z.email().optional(),
+  linkedinUrl: webUrl.optional(),
+  industry: text,
+  region: text,
+  // Who in the company shared it, and how they know the person.
+  owner: text,
+  team: z.enum(["sales", "marketing"]),
+  origin: z.enum(["colleague", "event"]),
+  eventName: text.optional(),
+  note: z.string().optional(),
+  okToContact: z.boolean(),
+  okToMention: z.boolean(),
+  addedAt: isoTimestamp,
+});
+export type RippleContact = z.infer<typeof RippleContactSchema>;
 
 export const SettingsSchema = z.object({
   id,

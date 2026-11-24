@@ -6,6 +6,7 @@ import { motion, useMotionValue, useReducedMotion, useTransform } from "motion/r
 import { useState, useSyncExternalStore } from "react";
 import { toast } from "sonner";
 import { TierBadge } from "@/components/buyers/TierBadge";
+import { RippleBadge } from "@/components/ripple/RippleBadge";
 import { SourceLink } from "@/components/SourceLinks";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -19,7 +20,8 @@ const SWIPE = 100;
 const noop = () => () => {};
 
 function Highlighted({ item }: { item: QueueItem }) {
-  const phrase = item.signals.map((s) => s.summary).find((s) => item.message.body.includes(s));
+  const hook = item.message.ripple?.hook;
+  const phrase = hook && item.message.body.includes(hook) ? hook : item.signals.map((s) => s.summary).find((s) => item.message.body.includes(s));
   if (!phrase) return <>{item.message.body}</>;
   const at = item.message.body.indexOf(phrase);
   return (
@@ -107,6 +109,7 @@ export function ApproveView({ drafts, ready, waiting, demo }: { drafts: QueueIte
             {item.message.channel === "email" ? <Mail /> : <Linkedin />}
             <Badge variant="secondary">{CHANNEL_LABELS[item.message.channel]} {item.message.variant}</Badge>
           </div>
+          {item.message.ripple && <RippleBadge owner={item.message.ripple.owner} />}
           {item.message.flags?.map((f) => <p key={f} className="mt-2 rounded-lg bg-amber-100 px-3 py-2 text-sm text-amber-900">{f}</p>)}
           {editing !== null ? (
             <Textarea aria-label="Message" className="mt-3 min-h-60 text-base" value={editing} onChange={(e) => setEditing(e.target.value)} />

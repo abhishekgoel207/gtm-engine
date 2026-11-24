@@ -6,6 +6,7 @@ import { REP } from "@/lib/rep";
 import { get, list, upsert } from "@/lib/store";
 import { type Lead, LeadSchema } from "@/lib/types";
 import { getContext } from "./context";
+import { findRipple } from "./rippleLookup";
 
 export const MoveSchema = z.object({ stage: LeadSchema.shape.stage }).strict();
 
@@ -24,11 +25,17 @@ export function getBoard() {
   const last = new Map<string, string>();
   for (const a of list("audit")) if (a.leadId) last.set(a.leadId, a.ts);
   for (const m of list("messages")) if (m.sentAt && m.sentAt > (last.get(m.leadId) ?? "")) last.set(m.leadId, m.sentAt);
+  const contacts = list("ripple").filter((c) => c.okToContact);
+  const sharedBy = (personId: string, companyId: string) => {
+    const person = ctx.people.get(personId);
+    return person && findRipple({ name: person.name, email: person.email, domain: ctx.companies.get(companyId)?.domain }, contacts)?.owner;
+  };
   const cards = list("leads").filter((l) => !l.hidden).map((lead) => ({
     lead,
     company: ctx.companies.get(lead.companyId)?.name ?? "",
     person: ctx.people.get(lead.personId)?.name ?? "",
     lastActivity: last.get(lead.id),
+    ripple: sharedBy(lead.personId, lead.companyId),
   }));
   return LeadSchema.shape.stage.options.map((stage) => {
     const mine = cards.filter((c) => c.lead.stage === stage).sort((a, b) => b.lead.score.total - a.lead.score.total);

@@ -9,7 +9,8 @@ export const ACTION_LABELS: Record<string, string> = {
   "lead.shown": "Showed a hidden lead", "lead.moved": "Moved a lead", "leads.rescored": "Updated scores", "rule.changed": "Changed a filter",
   "person.enriched": "Found contact info", "sequence.drafted": "Wrote drafts", "message.approved": "Approved a message", "message.edited": "Edited a message",
   "message.rejected": "Rejected a message", "message.sent": "Sent a message", "message.scheduled": "Scheduled a message", "message.replied": "Got a reply",
-  "message.bounced": "Email bounced", "message.blocked": "Blocked a message", "credits.added": "Added credits", "credits.zeroed": "Set credits to 0",
+  "message.bounced": "Email bounced", "message.blocked": "Blocked a message", "ripple.shared": "Shared a contact", "ripple.added": "Added from Ripple", "ripple.permission": "Changed contact permission", "ripple.removed": "Removed a shared contact",
+  "credits.added": "Added credits", "credits.zeroed": "Set credits to 0",
   "agents.approved": "Approved an agent action", "agents.denied": "Denied an agent action",
 };
 

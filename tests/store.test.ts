@@ -65,7 +65,7 @@ describe("store", () => {
     store.upsert("companies", company("c1"));
     store.upsert("ledger", entry);
     store.reset();
-    expect(store.COLLECTIONS).toHaveLength(12);
+    expect(store.COLLECTIONS).toHaveLength(13);
     for (const c of store.COLLECTIONS) {
       expect(store.list(c), c).toEqual([]);
       expect(readFile()[c], c).toEqual([]);

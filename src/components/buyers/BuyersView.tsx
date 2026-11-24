@@ -17,6 +17,7 @@ import { sourceHref } from "@/lib/sourceHref";
 import type { BuyerRow } from "@/services/buyers";
 import { ContactInfo, EnrichAll, EnrichButton } from "./Enrichment";
 import { SequenceButton } from "./SequenceButton";
+import { RippleBadge } from "@/components/ripple/RippleBadge";
 import { ScoreRing } from "@/components/visual/ScoreRing";
 import { SignalChip } from "@/components/visual/SignalChip";
 import { TierBadge } from "./TierBadge";
@@ -46,8 +47,8 @@ export function BuyersView({ rows, icpId, icpApproved, canEnrich }: { rows: Buye
     setFinding(true);
     setOpen(true);
     try {
-      const { added, hidden } = await api<{ added: number; hidden: number }>("/api/discover", "POST", { icpId });
-      toast.success(`Found ${added} new buyers. ${hidden} hidden.`);
+      const { added, hidden, ripple } = await api<{ added: number; hidden: number; ripple: number }>("/api/discover", "POST", { icpId });
+      toast.success(`Found ${added} new buyers. ${hidden} hidden.${ripple ? ` ${ripple} more from Ripple.` : ""}`);
       router.refresh();
     } catch (error) {
       toast.error((error as Error).message);
@@ -101,7 +102,7 @@ export function BuyersView({ rows, icpId, icpApproved, canEnrich }: { rows: Buye
                     <Cited href={company.sources[0].url}>{company.name}</Cited>
                     <span className="block text-xs text-muted-foreground">{company.hq}</span>
                   </TableCell>
-                  <TableCell><span className="flex items-center gap-2"><Avatar src={row.art} small /><Cited href={person.sources[0].url}>{person.name}</Cited></span></TableCell>
+                  <TableCell><span className="flex items-center gap-2"><Avatar src={row.art} small /><Cited href={person.sources[0].url}>{person.name}</Cited></span>{row.ripple && <RippleBadge owner={row.ripple.owner} />}</TableCell>
                   <TableCell>{person.title}</TableCell>
                   <TableCell>
                     <Popover>
@@ -203,7 +204,7 @@ function BuyerCard({ row, canEnrich }: { row: BuyerRow; canEnrich: boolean }) {
         </div>
         <div className="flex flex-col items-center gap-1"><ScoreRing {...lead.score} size={60} /><TierBadge tier={lead.score.tier} /></div>
       </div>
-      {topSignal && <SignalChip type={topSignal.type} />}
+      <div className="flex flex-wrap gap-2">{topSignal && <SignalChip type={topSignal.type} />}{row.ripple && <RippleBadge owner={row.ripple.owner} />}</div>
       {topSignal && <SourceLink source={topSignal.source} label={topSignal.summary} />}
       <ContactInfo person={person} />
       <EnrichButton row={row} canEnrich={canEnrich} />

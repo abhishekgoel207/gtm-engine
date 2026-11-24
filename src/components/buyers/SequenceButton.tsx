@@ -10,7 +10,7 @@ import type { BuyerRow } from "@/services/buyers";
 export function SequenceButton({ row }: { row: BuyerRow }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
-  if (row.hasMessages || !row.topSignal || row.lead.stage === "won" || row.lead.stage === "lost") return null;
+  if (row.hasMessages || (!row.topSignal && !row.ripple) || row.lead.stage === "won" || row.lead.stage === "lost") return null;
   const write = async () => {
     setBusy(true);
     try {
@@ -23,5 +23,5 @@ export function SequenceButton({ row }: { row: BuyerRow }) {
       setBusy(false);
     }
   };
-  return <Button variant="outline" className="my-1 h-11" disabled={busy} onClick={write}>{busy ? "Writing..." : "Write messages"}</Button>;
+  return <Button variant="outline" className="my-1 h-11" disabled={busy} onClick={write}>{busy ? "Writing..." : row.ripple ? "Write warm messages" : "Write messages"}</Button>;
 }
