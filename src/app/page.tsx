@@ -1,7 +1,11 @@
-export default function Home() {
+import { EmptyState } from "@/components/shell/EmptyState";
+import { PageHeader } from "@/components/shell/PageHeader";
+
+export default function HomePage() {
   return (
-    <main className="flex flex-1 items-center justify-center p-4">
-      <h1 className="text-3xl font-semibold">GTM Engine</h1>
-    </main>
+    <>
+      <PageHeader title="Home" help="Your next step shows up here." />
+      <EmptyState message="Nothing to do yet. Load the example to look around." />
+    </>
   );
 }
