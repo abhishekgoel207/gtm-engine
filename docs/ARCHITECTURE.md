@@ -58,6 +58,10 @@ Planner, Builder, Reviewer and Security act only when @mentioned, and hand off w
 
 Approving a graph design change records it. It does not yet change the enforced schema.
 
+## Buyer Twin
+
+`services/twin.ts` asks the AI how a buyer in that role might react to a draft, the question they would ask, and one sentence to change. It is labeled as a simulation. Code drops a suggestion that isn't an exact sentence, removes the opening fact, adds a number, link or address, or breaks a length limit. Using one is a normal edit, so the rep must still approve. The private Ripple note is not used.
+
 ## Ripple
 
 `services/ripple.ts` stores shared contacts and works out where each stands: in GTM, ready, outside the ideal customer, or do not contact. A contact matches a person by email, or by name and company domain.

@@ -1,8 +1,9 @@
+import { artFor } from "@/lib/art";
 import { list } from "@/lib/store";
 import type { Company, Lead, Message, Person, Signal } from "@/lib/types";
 import { getContext } from "./context";
 
-export interface QueueItem { message: Message; lead: Lead; person: Person; company: Company; signals: Signal[] }
+export interface QueueItem { message: Message; lead: Lead; person: Person; company: Company; signals: Signal[]; art: string }
 
 export function getQueue() {
   const ctx = getContext();
@@ -12,7 +13,7 @@ export function getQueue() {
     const person = lead && ctx.people.get(lead.personId);
     const company = lead && ctx.companies.get(lead.companyId);
     if (!lead || !person || !company) return [];
-    return [{ message, lead, person, company, signals: ctx.signals.filter((s) => message.signalIds.includes(s.id)) }];
+    return [{ message, lead, person, company, signals: ctx.signals.filter((s) => message.signalIds.includes(s.id)), art: artFor(person.id + company.name) }];
   });
   const by = (status: Message["status"]) => items.filter((i) => i.message.status === status);
   return {
