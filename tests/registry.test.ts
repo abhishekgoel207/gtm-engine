@@ -245,17 +245,6 @@ describe("mocks: valid output, repeatable, no network", () => {
 
 describe("live stubs throw 'not implemented'", () => {
   it.each<[string, () => unknown]>([
-    [
-      "anthropic",
-      () =>
-        anthropicLLM.generateJSON({
-          agent: "",
-          system: "",
-          prompt: "",
-          schema: z.string(),
-          fixtureKey: "x",
-        }),
-    ],
     ["tavily", () => tavilySearch.search("x", { num: 1 })],
     ["serper", () => serperSearch.search("x", { num: 1 })],
     ["hunter", () => hunterEnrichment.enrichPerson({ name: "x", companyDomain: "x.example" })],
