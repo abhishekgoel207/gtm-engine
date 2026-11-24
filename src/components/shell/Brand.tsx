@@ -1,6 +1,5 @@
-import { Brain, Coins } from "lucide-react";
+import { Coins } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 export function AppName() {
   return (
@@ -18,15 +17,5 @@ export function CreditsPill() {
       <span aria-hidden>--</span>
       <span className="sr-only">Credits not available yet</span>
     </span>
-  );
-}
-
-/** Does nothing until the Agent Thinking panel is built (P08). */
-export function ThinkingButton() {
-  return (
-    <Button variant="outline" className="h-11 px-3" disabled>
-      <Brain aria-hidden />
-      Thinking
-    </Button>
   );
 }

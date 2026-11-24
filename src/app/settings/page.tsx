@@ -1,6 +1,7 @@
 import { connection } from "next/server";
 import { Suspense } from "react";
 import { PageHeader } from "@/components/shell/PageHeader";
+import { TestStreamButton } from "@/components/TestStreamButton";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getProviderModes, type ProviderKind } from "@/providers/registry";
 
@@ -35,6 +36,7 @@ export default function SettingsPage() {
       <Suspense fallback={<Skeleton className="h-72 w-full" />}>
         <ServiceList />
       </Suspense>
+      {process.env.NODE_ENV === "development" && <TestStreamButton />}
     </>
   );
 }

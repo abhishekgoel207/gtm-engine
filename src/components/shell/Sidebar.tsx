@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { ThinkingButton } from "@/components/AgentThinking";
 import { cn } from "@/lib/utils";
-import { AppName, CreditsPill, ThinkingButton } from "./Brand";
+import { AppName, CreditsPill } from "./Brand";
 import { isActive, MORE_ITEMS, TABS } from "./nav";
 
 export function Sidebar({ pendingBadge }: { pendingBadge: ReactNode }) {
