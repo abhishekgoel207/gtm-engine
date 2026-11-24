@@ -68,8 +68,14 @@ Sales and marketing share people they know or met at sponsored events. Each cont
 
 `.github/workflows/security.yml` runs the tests and Snyk. It needs a `SNYK_TOKEN` repository secret.
 
-## Deploy
+## Deploy on Render
 
-The app has no login. Anyone with the link can use it and reset its data, so deploy it for demos only. On Vercel it keeps data in memory, which is lost on restart and not shared between instances.
+`render.yaml` describes the service. It runs on sample answers and loads the demo at each start.
+
+1. In Render, choose New, then Blueprint, and pick this repository.
+2. Enter a long `SITE_PASSWORD` when asked. Visitors can type any user name. Without a password a Render copy refuses to open.
+3. Deploy, then open the link.
+
+The free plan sleeps after 15 idle minutes, takes about a minute to wake, and forgets changes on restart. There are no separate accounts: everyone with the password shares one workspace. Don't enter real people's details. To use Claude, add `ANTHROPIC_API_KEY` in Render with a spending limit on the key.
 
 More: [architecture](docs/ARCHITECTURE.md), [business case](docs/BUSINESS.md).

@@ -1,0 +1,16 @@
+# Render Blueprint. Sample answers only: no keys are set.
+services:
+  - type: web
+    name: gtm-engine
+    runtime: node
+    plan: free
+    branch: main
+    autoDeployTrigger: "off"
+    buildCommand: npm ci --include=dev && npm run build
+    # Free plans forget saved files, so each start begins with the demo.
+    # Remove "npm run seed" before attaching a disk, or it will wipe your data.
+    startCommand: npm run seed && npx next start -H 0.0.0.0
+    healthCheckPath: /api/health
+    envVars:
+      - key: SITE_PASSWORD
+        sync: false

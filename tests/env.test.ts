@@ -28,6 +28,7 @@ const KEYS: Record<string, string> = {
   ORG_ID: "demo-org",
   BAND_BRIDGE_URL: "",
   CRON_SECRET: "",
+  SITE_PASSWORD: "",
 };
 
 describe("rules files", () => {
