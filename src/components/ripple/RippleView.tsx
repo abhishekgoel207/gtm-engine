@@ -1,10 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { CalendarDays, Handshake } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { RippleMap } from "./RippleMap";
 import { StickyAction } from "@/components/StickyAction";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -17,24 +18,6 @@ import type { RippleStatus, RippleView as View } from "@/services/ripple";
 const STATUS: Record<RippleStatus, string> = {
   in_gtm: "bg-good/15 text-good", ready: "bg-link/15 text-link", no_fit: "bg-secondary text-muted-foreground", blocked: "bg-bad/15 text-bad",
 };
-
-function Rings({ counts }: { counts: View["counts"] }) {
-  const still = useReducedMotion();
-  const rings = [[92, counts.shared, "Shared", "var(--link)"], [64, counts.matched, "Good match", "var(--s1)"], [36, counts.inGtm, "In GTM", "var(--good)"]] as const;
-  return (
-    <section className="mb-5 flex items-center gap-5 rounded-xl border bg-card p-4" aria-label="Ripple so far">
-      <svg viewBox="0 0 200 200" className="size-32 shrink-0" aria-hidden>
-        {rings.map(([r, , , color], i) => (
-          <motion.circle key={r} cx="100" cy="100" r={r} fill={color} fillOpacity="0.1" stroke={color} strokeWidth="2.5" initial={still ? false : { scale: 0.4, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.25 - i * 0.1, duration: 0.6 }} style={{ transformOrigin: "100px 100px" }} />
-        ))}
-        <text x="100" y="112" textAnchor="middle" fontSize="36" fontWeight="700" fill="var(--foreground)">{counts.inGtm}</text>
-      </svg>
-      <ul className="space-y-2">
-        {rings.map(([r, n, label, color]) => <li key={r} className="flex items-center gap-2"><span className="size-3 rounded-full" style={{ background: color }} /><b className="text-xl tabular-nums">{n}</b> {label}</li>)}
-      </ul>
-    </section>
-  );
-}
 
 const BLANK = { name: "", title: "", companyName: "", website: "", email: "", linkedinUrl: "", note: "", rows: "" };
 
@@ -91,27 +74,32 @@ export function RippleView({ view }: { view: View }) {
   );
 
   const owners = [...new Set(view.contacts.map((c) => c.contact.owner))].sort();
-  const events = [...new Set(view.contacts.flatMap((c) => c.contact.eventName ?? []))].sort();
-  const shown = view.contacts.filter(({ contact: c }) => !filter || c.owner === filter || c.eventName === filter);
+  const shown = view.contacts.filter(({ contact: c }) => !filter || c.owner === filter || (c.eventName ?? "Personal network") === filter);
 
   return (
     <>
-      {view.contacts.length > 0 && <Rings counts={view.counts} />}
+      {view.contacts.length > 0 && <RippleMap view={view} picked={filter} onPick={(owner) => setFilter(filter === owner ? "" : owner)} />}
       <div className="mb-3 flex flex-wrap gap-2">
         <Button variant="outline" className="h-11" onClick={() => setOpen(true)}>Share a contact</Button>
         <select aria-label="Filter" className="h-11 max-w-full rounded-lg border bg-background px-3 text-base" value={filter} onChange={(e) => setFilter(e.target.value)}>
           <option value="">Everyone</option>
-          {[...owners, ...events].map((o) => <option key={o} value={o}>{o}</option>)}
+          {[...owners, ...view.events.map((e) => e.name)].map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
       </div>
       {view.contacts.length === 0 && <p className="rounded-xl border border-dashed p-8 text-center text-muted-foreground">No shared contacts yet. Share someone you met.</p>}
       <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
-        {shown.map(({ contact: c, status, text, leadId }) => (
+        {shown.map(({ contact: c, status, text, leadId, art }) => (
           <li key={c.id} id={c.id} data-status={status} className="scroll-mt-20 rounded-xl border bg-card p-4 target:border-link">
-            <p className="font-semibold">{c.name}</p>
-            <p className="text-sm text-muted-foreground">{c.title}, {c.companyName}</p>
+            <div className="flex items-center gap-3">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={art} alt="" className="size-12 rounded-xl" />
+              <div className="min-w-0">
+                <p className="font-semibold">{c.name}</p>
+                <p className="text-sm text-muted-foreground">{c.title}, {c.companyName}</p>
+              </div>
+            </div>
             {c.email && <p className="text-sm break-all">{c.email}</p>}
-            <p className="mt-2 text-sm">Owner: <b>{c.owner}</b> ({c.team}). {c.origin === "event" ? `Met at ${c.eventName}.` : "Knows them."}</p>
+            <p className="mt-2 flex items-start gap-2 text-sm">{c.origin === "event" ? <CalendarDays className="mt-0.5 size-4 shrink-0 text-warn" aria-hidden /> : <Handshake className="mt-0.5 size-4 shrink-0 text-warn" aria-hidden />}<span>Owner: <b>{c.owner}</b> ({c.team}). {c.origin === "event" ? `Met at ${c.eventName}.` : "Knows them."}</span></p>
             {c.note && <p className="text-sm text-muted-foreground">Private note: {c.note}</p>}
             <p className="mt-2 flex flex-wrap items-center gap-2"><span className={`rounded-full px-2.5 py-1 text-xs ${STATUS[status]}`}>{text}</span>{leadId && status === "in_gtm" && <Link className="inline-flex min-h-11 items-center text-sm text-link underline" href={`/activity?lead=${leadId}`}>See activity</Link>}</p>
             <div className="mt-1 flex items-center justify-between gap-2">
