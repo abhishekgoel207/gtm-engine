@@ -17,7 +17,7 @@ test("share a contact, match it, and write a personal message", async ({ page, r
   await expect(card).toHaveAttribute("data-status", "ready");
 
   await page.getByRole("button", { name: "Match to GTM" }).click();
-  await expect(page.getByText(/Added 4 to GTM/)).toBeVisible();
+  await expect(page.getByText(/Added 18 to GTM/)).toBeVisible();
   await expect(card).toContainText("In GTM: Matched");
 
   await page.goto("/buyers");
@@ -30,7 +30,7 @@ test("share a contact, match it, and write a personal message", async ({ page, r
 
   await page.goto("/approve");
   const article = page.getByRole("article", { name: "Message to approve" });
-  for (let i = 0; i < 20 && !(await article.innerText()).includes("Lee Park"); i++) {
+  for (let i = 0; i < 40 && !(await article.innerText()).includes("Lee Park"); i++) {
     await article.getByRole("button", { name: "Skip" }).click();
     await page.waitForTimeout(100);
   }

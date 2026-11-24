@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 import { z } from "zod";
+import { artFor } from "@/lib/art";
 import { emit } from "@/lib/agentLog";
 import { logAudit } from "@/lib/audit";
 import { AppError } from "@/lib/http";
@@ -181,10 +182,18 @@ export function removeContact(id: string): { ok: true } {
 }
 
 export function getRippleView() {
-  const contacts = list("ripple").map((contact) => ({ contact, ...identify(contact) })).sort((a, b) => b.contact.addedAt.localeCompare(a.contact.addedAt) || a.contact.name.localeCompare(b.contact.name));
+  const contacts = list("ripple").map((contact) => ({ contact, ...identify(contact), art: artFor(contact.name + contact.companyName) })).sort((a, b) => b.contact.addedAt.localeCompare(a.contact.addedAt) || a.contact.name.localeCompare(b.contact.name));
   const icp = getWorkingIcp();
+  const owners = [...new Set(contacts.map((c) => c.contact.owner))].map((owner) => {
+    const mine = contacts.filter((c) => c.contact.owner === owner);
+    return { owner, team: mine[0].contact.team, art: artFor(`employee ${owner}`), total: mine.length, inGtm: mine.filter((c) => c.status === "in_gtm").length, statuses: mine.map((c) => ({ id: c.contact.id, name: c.contact.name, status: c.status })) };
+  }).sort((a, b) => b.inGtm - a.inGtm || b.total - a.total || a.owner.localeCompare(b.owner));
+  const events = [...new Set(contacts.map((c) => c.contact.eventName ?? "Personal network"))].map((name) => {
+    const mine = contacts.filter((c) => (c.contact.eventName ?? "Personal network") === name);
+    return { name, total: mine.length, matched: mine.filter((c) => c.status === "in_gtm" || c.status === "ready").length };
+  }).sort((a, b) => b.matched - a.matched || b.total - a.total);
   return {
-    contacts,
+    contacts, owners, events,
     counts: { shared: contacts.length, matched: contacts.filter((c) => c.status === "in_gtm" || c.status === "ready").length, inGtm: contacts.filter((c) => c.status === "in_gtm").length },
     industries: [...new Set([...(icp?.industries.map((i) => i.value.label) ?? []), "Other"])],
     regions: [...new Set([...(icp?.regions ?? []), "North America", "Europe", "Other"])],

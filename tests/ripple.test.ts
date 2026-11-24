@@ -5,6 +5,8 @@ import { sourceHref } from "@/lib/sourceHref";
 import * as store from "@/lib/store";
 import { mockMessaging } from "@/providers/messaging/mock";
 import { getBuyerRows } from "@/services/buyers";
+import { discover } from "@/services/discovery";
+import { createIcp, updateIcp } from "@/services/icp";
 import { loadDemo } from "@/services/demo";
 import { enrichLead } from "@/services/enrichment";
 import { actOnMessage, createSequence, RIPPLE_SEQUENCE } from "@/services/outreach";
@@ -41,13 +43,45 @@ describe("sharing", () => {
   });
 });
 
+describe("sample data", () => {
+  it("has 25 contacts, 5 from each of 5 employees, with no future dates", () => {
+    const owners = store.list("ripple").map((c) => c.owner);
+    expect(owners).toHaveLength(25);
+    expect([...new Set(owners)].map((o) => owners.filter((x) => x === o).length)).toEqual([5, 5, 5, 5, 5]);
+    for (const c of store.list("ripple")) expect(c.addedAt < "2026-11-24T09:00:00Z").toBe(true);
+  });
+  it("covers every status", () => {
+    expect([...new Set(getRippleView().contacts.map((c) => c.status))].sort()).toEqual(["blocked", "in_gtm", "no_fit", "ready"]);
+  });
+  it("every matching contact becomes a scored lead with personal drafts", async () => {
+    const ready = getRippleView().contacts.filter((c) => c.status === "ready");
+    matchRipple();
+    for (const { contact } of ready) {
+      const row = getBuyerRows().find((r) => r.person.name === contact.name)!;
+      expect(row.lead.hidden, contact.name).toBeUndefined();
+      expect(row.lead.score.total, contact.name).toBeGreaterThan(0);
+      expect(row.ripple?.owner).toBe(contact.owner);
+      const drafts = await createSequence(row.lead.id);
+      expect(drafts, contact.name).toHaveLength(4);
+      for (const m of drafts) expect(m.flags, contact.name).toBeUndefined();
+    }
+  });
+  it("is picked up by Find buyers", async () => {
+    const icp = await createIcp("prod_01");
+    updateIcp(icp.id, { status: "approved" });
+    const result = await discover(icp.id);
+    expect(result).toMatchObject({ added: 2, ripple: 16 });
+    expect(getRippleView().counts).toEqual({ shared: 25, matched: 19, inGtm: 19 });
+  });
+});
+
 describe("identification in GTM", () => {
   it("adds only matching, permitted contacts, and repeats add none", () => {
-    expect(["rip_02", "rip_03", "rip_04", "rip_05"].map(status)).toEqual(["ready", "ready", "no_fit", "blocked"]);
+    expect(["rip_02", "rip_06", "rip_07", "rip_03"].map(status)).toEqual(["ready", "ready", "no_fit", "blocked"]);
     // Marcus is in Ripple before the web search finds him, so he is added too.
-    expect(matchRipple().added).toBe(3);
-    expect(matchRipple()).toEqual({ added: 0, linked: 3 });
-    expect(["rip_02", "rip_03", "rip_04", "rip_05"].map(status)).toEqual(["in_gtm", "in_gtm", "no_fit", "blocked"]);
+    expect(matchRipple()).toEqual({ added: 17, linked: 2 });
+    expect(matchRipple()).toEqual({ added: 0, linked: 19 });
+    expect(["rip_02", "rip_06", "rip_07", "rip_03"].map(status)).toEqual(["in_gtm", "in_gtm", "no_fit", "blocked"]);
     expect(store.list("people").some((p) => p.name === "Colin Adeyemi")).toBe(false);
   });
   it("uses the existing company, cites Ripple, scores the relationship and shows the owner", () => {
@@ -55,7 +89,7 @@ describe("identification in GTM", () => {
     const row = getBuyerRows().find((r) => r.person.name === "Ivan Petrov")!;
     expect(row.company.id).toBe("co_04");
     expect(row.ripple?.owner).toBe("Sam Ortiz");
-    expect(sourceHref(row.person.sources[0].url)).toBe("/ripple#rip_03");
+    expect(sourceHref(row.person.sources[0].url)).toBe("/ripple#rip_06");
     expect(row.lead.score.reasons).toContain("Sam Ortiz knows Ivan Petrov.");
     expect(getBoard().flatMap((c) => c.cards).find((c) => c.person === "Ivan Petrov")?.ripple).toBe("Sam Ortiz");
   });
@@ -116,8 +150,8 @@ describe("permission", () => {
     await expect(enrichLead("lead_p_rip_02")).rejects.toThrow("asked not to be contacted");
   });
   it("never forgets a do-not-contact request", async () => {
-    expect((await DELETE(post({}, "DELETE"), params("rip_05"))).status).toBe(409);
-    expect(store.get("ripple", "rip_05")?.okToContact).toBe(false);
+    expect((await DELETE(post({}, "DELETE"), params("rip_03"))).status).toBe(409);
+    expect(store.get("ripple", "rip_03")?.okToContact).toBe(false);
   });
   it("removing a contact clears what came from it", async () => {
     matchRipple();
