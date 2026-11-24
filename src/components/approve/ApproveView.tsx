@@ -1,5 +1,6 @@
 "use client";
 
+import { BuyerTwin } from "./BuyerTwin";
 import { Linkedin, Mail } from "./icons";
 import { useRouter } from "next/navigation";
 import { motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
@@ -120,6 +121,10 @@ export function ApproveView({ drafts, ready, waiting, demo }: { drafts: QueueIte
             </>
           )}
           <ul className="mt-3">{item.message.citations.map((s) => <li key={s.url}><SourceLink source={s} /></li>)}</ul>
+          {editing === null && !rejecting && (
+            // The key starts a fresh twin whenever the draft changes.
+            <BuyerTwin key={item.message.body} messageId={item.message.id} name={item.person.name} art={item.art} busy={busy} onUse={(body) => act({ action: "edit", body }, "Changed. Approve it when you're ready.")} />
+          )}
           {rejecting ? (
             <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Why reject?">
               {REASONS.map((reason) => <Button key={reason} variant="outline" className="h-11 capitalize" disabled={busy} onClick={() => act({ action: "reject", reason }, "Rejected")}>{reason}</Button>)}

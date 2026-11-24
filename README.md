@@ -47,6 +47,10 @@ To use Claude on your own machine without a key, run `ant auth login` and set `A
 
 Copy `.env.example` to `.env.local`. Don't set a key whose adapter is not built.
 
+## Buyer Twin
+
+Before approving, a rep can test a draft on a simulated buyer. It reacts, asks one hard question and suggests one change, which the rep can use or ignore.
+
 ## Ripple
 
 Sales and marketing share people they know or met at sponsored events. Each contact has an owner and a status in GTM. Matching contacts become leads, their details are used before any paid lookup, and their messages open with the relationship instead of company news. "Do not contact" blocks lookup, drafting and sending. Private notes never go into messages.
