@@ -63,6 +63,7 @@ export function getInsights() {
     tests: {
       "Email version": arms(messages, leads, (m) => `Variant ${m.variant}`),
       Channel: arms(messages, leads, (m) => CHANNEL_LABELS[m.channel]),
+      ...(messages.some((m) => m.ripple && m.sentAt) && { Source: arms(messages, leads, (m) => (m.ripple ? "Ripple" : "Cold outreach")) }),
       Message: arms(messages, leads, (m) => m.valueProp),
     },
     moves: countMoves(),

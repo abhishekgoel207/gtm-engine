@@ -10,6 +10,7 @@ describe("nav config", () => {
     expect(TABS.map((t) => t.label)).toEqual(["Home", "Buyers", "Approve", "Pipeline"]);
     expect(MORE_ITEMS.map((t) => t.label)).toEqual([
       "Ideal customer",
+      "Ripple",
       "Competitors",
       "Graph",
       "Insights",

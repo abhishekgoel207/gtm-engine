@@ -58,6 +58,16 @@ Planner, Builder, Reviewer and Security act only when @mentioned, and hand off w
 
 Approving a graph design change records it. It does not yet change the enforced schema.
 
+## Ripple
+
+`services/ripple.ts` stores shared contacts and works out where each stands: in GTM, ready, outside the ideal customer, or do not contact. A contact matches a person by email, or by name and company domain.
+
+- **Discover** adds matching, permitted contacts after web search. The Builder agent uses the same step.
+- **Score** gives the 5-point warm introduction bonus.
+- **Enrich** uses Ripple first, at no cost. The email is marked not checked.
+- **Draft** uses a four-message sequence that opens with who they met and cites the Ripple record. The private note is never sent to the AI.
+- **Send** refuses anyone marked do not contact.
+
 ## Credits
 
 | Event | Credits |

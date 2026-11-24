@@ -15,7 +15,8 @@ A rep describes the product, approves an ideal customer, gets cited buyers, appr
 2. **Nothing is sent without a rep's approval.** The server enforces it.
 3. **A graph finds the reason to reach out:** warm introductions, active evaluations and competitor renewals.
 4. **It says who not to contact,** and why.
-5. **Phone first,** in plain words.
+5. **Ripple turns the whole company's relationships into pipeline,** with an owner for every contact.
+6. **Phone first,** in plain words.
 
 ## Business model
 Usage-based credits, so price follows value. Proposed, not yet tested with customers:

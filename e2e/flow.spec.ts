@@ -34,7 +34,7 @@ test("the whole demo, on a phone", async ({ page, request }) => {
   const jonas = cards.filter({ hasText: "Jonas Keller" }).first();
   await expect(jonas.getByText("jonas.keller@tallgrasspayments.example")).toBeVisible();
 
-  const fresh = cards.filter({ hasText: "Marcus Ellery" });
+  const fresh = cards.filter({ hasText: "Nadia Boateng" });
   await fresh.getByRole("button", { name: "Write messages" }).click();
   await expect(page.getByText("Drafts are ready to approve")).toBeVisible();
 

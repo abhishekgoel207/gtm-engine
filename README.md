@@ -45,6 +45,10 @@ Demo mode uses made-up data. Vendor samples follow each vendor's published forma
 
 Copy `.env.example` to `.env.local`. Don't set a key whose adapter is not built.
 
+## Ripple
+
+Sales and marketing share people they know or met at sponsored events. Each contact has an owner and a status in GTM. Matching contacts become leads, their details are used before any paid lookup, and their messages open with the relationship instead of company news. "Do not contact" blocks lookup, drafting and sending. Private notes never go into messages.
+
 ## Band
 
 `band_bridge/` posts agent messages to a Band room using Band's published REST schema. It has not been run against a live account, and receiving messages from Band is not built.

@@ -8,6 +8,7 @@ import {
   Kanban,
   type LucideIcon,
   Settings,
+  Radio,
   Share2,
   Swords,
   Target,
@@ -31,6 +32,7 @@ export const TABS: NavItem[] = [
 
 export const MORE_ITEMS: NavItem[] = [
   { href: "/icp", label: "Ideal customer", icon: Target },
+  { href: "/ripple", label: "Ripple", icon: Radio },
   { href: "/competitors", label: "Competitors", icon: Swords },
   { href: "/graph", label: "Graph", icon: Share2 },
   { href: "/insights", label: "Insights", icon: ChartColumn },

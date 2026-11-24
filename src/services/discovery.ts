@@ -11,6 +11,7 @@ import { getLLM, getProviderModes, getSearch } from "@/providers/registry";
 import { fetchText } from "@/providers/search/fetchPage";
 import { getCurrentProduct } from "./product";
 import { applyNegativeRules } from "./negativeSignals";
+import { bringIntoGtm } from "./ripple";
 import { rescore } from "./rescore";
 
 const AGENT = "Builder";
@@ -162,8 +163,9 @@ to link records. Use the region names given. Leave out anything a page does not 
     });
     logAudit({ ...ai(AGENT), action: "lead.created", leadId: lead.id, details: `Found ${person.name}` });
   }
+  const ripple = bringIntoGtm();
   rescore();
   const hidden = applyNegativeRules();
   emit({ agent: AGENT, kind: "think", text: `Added ${added} new buyers` });
-  return { added, hidden, dropped };
+  return { added, hidden, dropped, ripple: ripple.added };
 }
