@@ -1,4 +1,5 @@
 import { z } from "zod";
+import expansionFixture from "@/data/fixtures/expansion.json";
 import { emit } from "@/lib/agentLog";
 import { logAudit } from "@/lib/audit";
 import { AppError } from "@/lib/http";
@@ -29,10 +30,14 @@ export async function suggestExpansions(icpId: string): Promise<Expansion[]> {
 
   // Live mode may only cite pages the search returned.
   let found: Source[] | null = null;
-  if (getProviderModes().search === "live") {
+  const modes = getProviderModes();
+  if (modes.search === "live") {
     const query = `industries adopting ${product?.description ?? ""}`;
     emit({ agent: AGENT, kind: "tool", text: `Searching: ${query}` });
     found = await getSearch().search(query, { num: 8 });
+  } else if (modes.llm === "live") {
+    // Real Claude, demo search: it may cite the demo library and nothing else.
+    found = expansionFixture.expansions.flatMap((e) => e.evidence.map((s) => ({ ...s, snippet: e.rationale })));
   }
   const { expansions } = await getLLM().generateJSON({
     agent: AGENT,

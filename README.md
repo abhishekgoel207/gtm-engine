@@ -26,7 +26,7 @@ npx playwright test   # the full demo in a browser
 
 ## Demo or live
 
-Demo mode uses made-up data. Vendor samples follow each vendor's published format and run through the same code as live answers. **Only the Claude adapter has been tested live, with one `scripts/llm-smoke.ts` call. No other live service has been tested: there were no keys.**
+Demo mode uses made-up data. Vendor samples follow each vendor's published format and run through the same code as live answers. **Claude has been tested live on the demo data: ideal customer, suggestions, find buyers and Ripple messages. No other live service has been tested: there were no keys.**
 
 | Job | Keys | Without keys | Live adapter |
 | --- | --- | --- | --- |
