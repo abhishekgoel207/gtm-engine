@@ -1,0 +1,5 @@
+# Copy to agent_config.yaml (gitignored). One Band agent per role.
+Planner: { agent_id: "", api_key: "" }
+Builder: { agent_id: "", api_key: "" }
+Reviewer: { agent_id: "", api_key: "" }
+Security: { agent_id: "", api_key: "" }

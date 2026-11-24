@@ -6,6 +6,7 @@ import { AppError } from "@/lib/http";
 import { ai, REP } from "@/lib/rep";
 import { get, list, upsert } from "@/lib/store";
 import type { Lead, Message } from "@/lib/types";
+import { checkMessage } from "./security";
 import { linkedinMessaging } from "@/providers/messaging/linkedin";
 import { getBilling, getMessaging, getProviderModes } from "@/providers/registry";
 
@@ -49,6 +50,11 @@ export async function sendMessage(id: string, options: { by?: "rep" | "ai"; repS
 
   sending.add(id);
   try {
+    const problems = await checkMessage(message, person);
+    if (problems.length > 0) {
+      logAudit({ ...ai("Security"), ...meta, action: "message.blocked", details: problems.join(" ") });
+      throw new AppError(422, problems[0]);
+    }
     await (message.channel === "linkedin" ? linkedinMessaging : getMessaging()).send(message, person);
     const next = upsert("messages", { ...message, status: "sent", sentAt: new Date().toISOString() });
     const moved = moveForward(get("leads", lead.id), "contacted", by);

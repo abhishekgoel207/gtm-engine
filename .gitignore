@@ -50,3 +50,8 @@ next-env.d.ts
 # playwright
 /test-results/
 /playwright-report/
+
+# band credentials
+band_bridge/agent_config.yaml
+band_bridge/.venv/
+__pycache__/
