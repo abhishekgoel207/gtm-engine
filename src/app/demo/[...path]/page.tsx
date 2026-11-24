@@ -21,7 +21,7 @@ async function Evidence({ params }: { params: Promise<{ path: string[] }> }) {
   return (
     <>
       <PageHeader title={evidence.title} help="Sample source. Made-up demo data, not a real web page." />
-      <dl className="divide-y rounded-xl border">
+      <dl className="divide-y rounded-xl border bg-card">
         {evidence.facts.map((fact) => (
           <div key={fact.label} className="px-4 py-3">
             <dt className="text-sm text-muted-foreground">{label(fact.label)}</dt>

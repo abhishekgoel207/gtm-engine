@@ -2,6 +2,8 @@ import { connection } from "next/server";
 import { Suspense } from "react";
 import { BillingActions } from "@/components/billing/BillingActions";
 import { PageHeader } from "@/components/shell/PageHeader";
+import { Gauge } from "@/components/visual/Gauge";
+import { STARTING_CREDITS } from "@/config/billing";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getProviderModes } from "@/providers/registry";
 import { getBillingSummary } from "@/services/billing";
@@ -12,16 +14,17 @@ async function Content() {
   const live = getProviderModes().billing === "live";
   return (
     <>
-      <dl className="grid grid-cols-3 gap-2">
+      <Gauge value={balance} max={Math.max(STARTING_CREDITS, balance)} label="credits left" />
+      <dl className="mt-4 grid grid-cols-3 gap-2">
         {[["Credits left", balance], ["Used", spent], ["Cost per meeting", costPerMeeting ?? "None yet"]].map(([label, value]) => (
-          <div key={label} className="rounded-xl border p-3">
+          <div key={label} className="rounded-xl border bg-card p-3">
             <dt className="text-sm text-muted-foreground">{label}</dt>
             <dd className="text-2xl font-semibold">{value}</dd>
           </div>
         ))}
       </dl>
       <h2 className="mt-6 mb-2 font-semibold">Usage</h2>
-      <ul className="divide-y rounded-xl border">
+      <ul className="divide-y rounded-xl border bg-card">
         {usage.map((u) => (
           <li key={u.event} className="px-4 py-3 text-sm">
             <p className="font-medium">{u.label}</p>
@@ -32,13 +35,13 @@ async function Content() {
       {leads.length > 0 && (
         <>
           <h2 className="mt-6 mb-2 font-semibold">Cost per lead</h2>
-          <ul className="divide-y rounded-xl border">
+          <ul className="divide-y rounded-xl border bg-card">
             {leads.map((l) => <li key={l.id} className="flex min-h-12 items-center justify-between px-4 text-sm"><span>{l.name}</span><span>{l.cost} credits</span></li>)}
           </ul>
         </>
       )}
       {events.length > 0 && (
-        <details className="mt-6 rounded-xl border">
+        <details className="mt-6 rounded-xl border bg-card">
           <summary className="flex min-h-12 cursor-pointer items-center px-4 font-medium">
             Latest usage events ({live ? "sent to Flexprice" : "Flexprice format, not sent"})
           </summary>

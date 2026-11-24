@@ -22,7 +22,7 @@ async function ServiceList() {
   const modes = getProviderModes();
   return (
     <>
-    <ul className="divide-y rounded-xl border">
+    <ul className="divide-y rounded-xl border bg-card">
       {(Object.keys(LABELS) as ProviderKind[]).map((kind) => (
         <li key={kind} className="flex min-h-12 items-center px-4">
           {LABELS[kind]}: {modes[kind] === "live" ? "live" : "demo mode"}

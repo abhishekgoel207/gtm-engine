@@ -12,9 +12,9 @@ import type { BuyerRow } from "@/services/buyers";
 import { CircleAlert, CircleCheck, CircleHelp, CircleX } from "lucide-react";
 
 export const EMAIL_ICONS = {
-  valid: { icon: CircleCheck, color: "text-green-700", label: "Email works" },
-  risky: { icon: CircleAlert, color: "text-amber-600", label: "Email is risky" },
-  invalid: { icon: CircleX, color: "text-red-700", label: "Email does not work" },
+  valid: { icon: CircleCheck, color: "text-good", label: "Email works" },
+  risky: { icon: CircleAlert, color: "text-warn", label: "Email is risky" },
+  invalid: { icon: CircleX, color: "text-bad", label: "Email does not work" },
   unknown: { icon: CircleHelp, color: "text-muted-foreground", label: "Email not checked" },
 } as const;
 const MX = { ok: "Mail server found", no_mx: "No mail server", unknown: "Mail server not checked" };
@@ -34,7 +34,7 @@ export function ContactInfo({ person }: { person: Person }) {
         {how && ` · ${how.demo ? "Sample data in" : "Verified by"} ${how.provider}${how.demo ? " format" : ""}, ${how.confidence.toFixed(2)}`}
       </p>
       {person.linkedinUrl && (
-        <a className="inline-flex min-h-11 items-center text-blue-700 underline" href={person.linkedinUrl.replace("https://example.com/demo/", "/demo/")} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a className="inline-flex min-h-11 items-center text-link underline" href={person.linkedinUrl.replace("https://example.com/demo/", "/demo/")} target="_blank" rel="noopener noreferrer">LinkedIn</a>
       )}
     </div>
   );

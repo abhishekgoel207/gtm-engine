@@ -12,7 +12,7 @@ export function Sidebar({ pendingBadge, credits }: { pendingBadge: ReactNode; cr
   const pathname = usePathname();
 
   return (
-    <aside className="sticky top-0 hidden h-dvh w-60 shrink-0 flex-col gap-4 overflow-y-auto border-r p-4 md:flex">
+    <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col bg-background/60 gap-4 overflow-y-auto border-r p-4 md:flex">
       <div className="flex items-center justify-between">
         <AppName />
         {credits}
@@ -30,7 +30,7 @@ export function Sidebar({ pendingBadge, credits }: { pendingBadge: ReactNode; cr
                   className={cn(
                     "flex min-h-11 items-center gap-3 rounded-lg px-3 text-sm",
                     active
-                      ? "bg-muted font-semibold"
+                      ? "bg-primary/15 font-semibold text-foreground shadow-[inset_3px_0_0_var(--s1)]"
                       : "text-muted-foreground hover:bg-muted/60",
                   )}
                 >

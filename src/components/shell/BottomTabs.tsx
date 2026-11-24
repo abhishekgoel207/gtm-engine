@@ -23,7 +23,7 @@ const tabClass = (active: boolean) =>
   );
 
 const ActiveBar = () => (
-  <span className="absolute inset-x-4 top-0 h-0.5 rounded-full bg-foreground" />
+  <span className="absolute inset-x-4 top-0 h-0.5 rounded-full bg-primary shadow-[0_0_12px_var(--s1)]" />
 );
 
 export function BottomTabs({ pendingBadge }: { pendingBadge: ReactNode }) {
@@ -33,7 +33,7 @@ export function BottomTabs({ pendingBadge }: { pendingBadge: ReactNode }) {
   return (
     <nav
       aria-label="Main"
-      className="fixed inset-x-0 bottom-0 z-40 flex border-t bg-background pb-[env(safe-area-inset-bottom)] md:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 flex border-t bg-background/90 backdrop-blur pb-[env(safe-area-inset-bottom)] md:hidden"
     >
       {TABS.map(({ href, label, icon: Icon, badge }) => {
         const active = isActive(href, pathname);

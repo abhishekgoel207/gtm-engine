@@ -8,9 +8,10 @@ import { StickyAction } from "@/components/StickyAction";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { api } from "@/lib/api";
+import { AgentTrack } from "@/components/visual/AgentTrack";
 import type { Approval, RoomMessage } from "@/services/agents/room";
 
-const COLORS: Record<string, string> = { Planner: "bg-blue-100 text-blue-900", Builder: "bg-green-100 text-green-900", Reviewer: "bg-amber-100 text-amber-900", Security: "bg-red-100 text-red-900", rep: "bg-foreground text-background" };
+const COLORS: Record<string, string> = { Planner: "bg-link/15 text-link", Builder: "bg-good/15 text-good", Reviewer: "bg-warn/15 text-warn", Security: "bg-bad/15 text-bad", rep: "bg-foreground text-background" };
 
 export interface Telemetry { agent: string; input: number; output: number; cost: number; messages: number }
 
@@ -35,7 +36,8 @@ export function RoomView({ messages, approvals, telemetry, estimated }: { messag
 
   return (
     <>
-      <details className="mb-4 rounded-xl border">
+      <AgentTrack messages={messages} waiting={approvals.some((a) => a.status === "pending")} busy={busy} />
+      <details className="mb-4 rounded-xl border bg-card">
         <summary className="flex min-h-12 cursor-pointer items-center px-4 text-sm font-medium">
           Cost so far ${total.toFixed(4)}{estimated && " (estimated, demo mode)"}
         </summary>
@@ -44,7 +46,7 @@ export function RoomView({ messages, approvals, telemetry, estimated }: { messag
         </ul>
       </details>
       {approvals.filter((a) => a.status === "pending").map((a) => (
-        <article key={a.id} aria-label="Approval needed" className="mb-4 rounded-xl border-2 border-amber-500 p-4">
+        <article key={a.id} aria-label="Approval needed" className="mb-4 rounded-xl border-2 border-warn shadow-[0_0_32px_-8px_var(--warn)] p-4">
           <p className="font-semibold">{a.text}</p>
           <div className="mt-3 grid grid-cols-2 gap-2">
             <Button variant="outline" className="h-12" disabled={busy} onClick={() => call(`/api/agents/approvals/${a.id}`, { approve: false })}>Deny</Button>
@@ -55,11 +57,11 @@ export function RoomView({ messages, approvals, telemetry, estimated }: { messag
       <ol aria-label="Agent room" className="flex flex-col gap-3">
         {messages.length === 0 && <li className="rounded-xl border border-dashed p-8 text-center text-muted-foreground">Run the plan to see the agents work together.</li>}
         {messages.map((m) => (
-          <li key={m.id} data-from={m.from} className="flex gap-3">
+          <li key={m.id} data-from={m.from} className="flex gap-3 rounded-xl border bg-card p-3">
             <span className={`flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-bold ${COLORS[m.from] ?? "bg-muted"}`} aria-hidden>{m.from[0].toUpperCase()}</span>
             <div className="min-w-0">
               <p className="text-sm font-medium">{m.from === "rep" ? "You" : m.from} <time className="font-normal text-muted-foreground">{m.ts.slice(11, 19)} UTC</time></p>
-              <p className="break-words">{m.text.split(/(@\w+)/).map((part, i) => part.startsWith("@") ? <strong key={i} className="text-blue-700">{part}</strong> : part)}</p>
+              <p className="break-words">{m.text.split(/(@\w+)/).map((part, i) => part.startsWith("@") ? <strong key={i} className="text-link">{part}</strong> : part)}</p>
             </div>
           </li>
         ))}

@@ -9,6 +9,7 @@ import { TierBadge } from "@/components/buyers/TierBadge";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { api } from "@/lib/api";
+import { STAGE_FILL, StageBar } from "@/components/visual/StageBar";
 import { cn } from "@/lib/utils";
 import type { Board } from "@/services/pipeline";
 import type { Lead } from "@/lib/types";
@@ -28,12 +29,15 @@ export function BoardView({ board }: { board: Board }) {
   };
 
   return (
+    <>
+    <StageBar board={board} />
     <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-6 md:gap-2 md:px-0">
       {board.map(({ stage, label, cards, value }) => (
         <section
           key={stage}
           aria-label={label}
-          className={cn("w-[85%] shrink-0 snap-center rounded-xl bg-muted/50 p-3 md:w-auto md:p-2", over === stage && "ring-2 ring-ring")}
+          style={{ borderTopColor: STAGE_FILL[stage] }}
+          className={cn("w-[85%] shrink-0 snap-center rounded-xl border-t-4 bg-muted/50 p-3 md:w-auto md:p-2", over === stage && "ring-2 ring-ring")}
           onDragOver={(e) => { e.preventDefault(); setOver(stage); }}
           onDragLeave={() => setOver(null)}
           onDrop={(e) => {
@@ -47,7 +51,7 @@ export function BoardView({ board }: { board: Board }) {
           <ul className="flex flex-col gap-2">
             {cards.map(({ lead, company, person, lastActivity }) => (
               <li key={lead.id} data-lead={lead.id} draggable onDragStart={(e) => e.dataTransfer.setData("text/plain", `${lead.id}|${stage}`)}
-                className="rounded-lg border bg-background p-3 text-sm">
+                className="rounded-lg border bg-card p-3 text-sm">
                 <div className="flex items-start gap-2">
                   <div className="min-w-0 flex-1">
                     <p className="font-medium break-words">{person}</p>
@@ -56,7 +60,7 @@ export function BoardView({ board }: { board: Board }) {
                   <TierBadge tier={lead.score.tier} />
                 </div>
                 <p className="mt-1 text-xs text-muted-foreground">Score {lead.score.total}{lastActivity && `. Last activity ${lastActivity.slice(0, 10)}`}</p>
-                <p className="mt-1 inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-xs" data-owner={lead.owner}>
+                <p className="mt-1 inline-flex items-center gap-1 rounded-full bg-secondary px-2 py-0.5 text-xs" data-owner={lead.owner}>
                   {lead.owner === "ai" ? <><Bot className="size-3" aria-hidden /> AI</> : <><UserRound className="size-3" aria-hidden /> Rep: Alex</>}
                 </p>
                 <DropdownMenu>
@@ -74,5 +78,6 @@ export function BoardView({ board }: { board: Board }) {
         </section>
       ))}
     </div>
+    </>
   );
 }

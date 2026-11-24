@@ -15,7 +15,7 @@ async function Content() {
   return (
     <div className="grid gap-4 md:grid-cols-3">
       {competitors.map((c) => (
-        <article key={c.id} className="rounded-xl border p-4">
+        <article key={c.id} className="rounded-xl border bg-card p-4">
           <p className="text-sm text-muted-foreground">{TITLES[c.category]}</p>
           <h2 className="text-lg font-semibold">{c.name}</h2>
           <h3 className="mt-2 font-medium">How we win</h3>

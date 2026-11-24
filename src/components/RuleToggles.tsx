@@ -18,7 +18,7 @@ export function RuleToggles({ disabled }: { disabled: string[] }) {
   return (
     <section className="mt-6">
       <h2 className="mb-2 font-semibold">Hide buyers when</h2>
-      <ul className="divide-y rounded-xl border">
+      <ul className="divide-y rounded-xl border bg-card">
         {(Object.keys(NEGATIVE_RULES) as NegativeRule[]).map((rule) => (
           <li key={rule}>
             <label className="flex min-h-12 items-center gap-3 px-4">
