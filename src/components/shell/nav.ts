@@ -51,14 +51,14 @@ export const SECTIONS: NavSection[] = [
     ],
   },
   {
-    label: "Prospects", help: "Find the right people", icon: Users, items: [
+    label: "Prospects", help: "Find people", icon: Users, items: [
       { href: "/buyers", label: "Buyers", icon: Users },
       { href: "/ripple", label: "Ripple", icon: Radio },
       { href: "/graph", label: "Connections", icon: Share2 },
     ],
   },
   {
-    label: "Actions", help: "Reach out and follow up", icon: Zap, items: [
+    label: "Actions", help: "Reach out", icon: Zap, items: [
       { href: "/approve", label: "Approve", icon: CircleCheck, badge: "pending" },
       { href: "/pipeline", label: "Pipeline", icon: Kanban },
       { href: "/agents", label: "Agents", icon: Bot },
