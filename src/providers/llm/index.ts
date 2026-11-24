@@ -1,0 +1,14 @@
+import type { z } from "zod";
+
+export interface GenerateJSONInput<T> {
+  agent: string;
+  system: string;
+  prompt: string;
+  schema: z.ZodType<T>;
+  /** Names the fixture the mock returns: src/data/fixtures/<fixtureKey>.json */
+  fixtureKey: string;
+}
+
+export interface LLMProvider {
+  generateJSON<T>(input: GenerateJSONInput<T>): Promise<T>;
+}
