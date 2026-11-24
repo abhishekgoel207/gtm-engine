@@ -59,8 +59,8 @@ export const SECTIONS: NavSection[] = [
   },
   {
     label: "Actions", help: "Reach out", icon: Zap, items: [
-      { href: "/approve", label: "Approve", icon: CircleCheck, badge: "pending" },
       { href: "/pipeline", label: "Pipeline", icon: Kanban },
+      { href: "/approve", label: "Approve", icon: CircleCheck, badge: "pending" },
       { href: "/agents", label: "Agents", icon: Bot },
     ],
   },

@@ -11,7 +11,7 @@ describe("nav config", () => {
       ["Dashboard", ["Overview", "Insights", "Activity"]],
       ["Onboarding", ["Your product", "Ideal customer", "Competitors"]],
       ["Prospects", ["Buyers", "Ripple", "Connections"]],
-      ["Actions", ["Approve", "Pipeline", "Agents"]],
+      ["Actions", ["Pipeline", "Approve", "Agents"]],
       ["Account", ["Billing", "Settings"]],
     ]);
     expect(NAV_ITEMS.filter((t) => t.badge).map((t) => t.label)).toEqual(["Approve"]);
